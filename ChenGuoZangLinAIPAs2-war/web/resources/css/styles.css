@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 5, 2014, 9:47:54 PM
+    Author     : Zang
+*/
+#column{
+    background-image: url("img/HomeBanner.png");
+    background-repeat: no-repeat;
+    height:450px;
+    position: relative;
+}
+
+#info{
+    position: absolute;
+    left:82%;
+    top:82%;
+}

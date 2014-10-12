@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+    <title>Aviation Hub</title>
+    <meta name="author" content="The Author"></meta>
+    <h:outputStylesheet library="css" name="styles.css"  /> 
+</h:head>
+<!-- Add 50px padding top to the body for the navbar -->
+<h:body style="padding-top: 50px; padding-bottom: 20px;">
+    <b:navBar brand="Aviation Hub" brandHref="#" inverse="true" fixed="top">
+    
+        <h:form styleClass="navbar-form navbar-right">
+            <div class="form-group">
+                <b:inputText placeholder="Email" fieldSize="sm"/>
+                <!--input type="text" class="form-control" placeholder="Search"/-->
+            </div>
+            <div class="form-group">
+                <b:inputText placeholder="Password" fieldSize="sm"/>
+            </div>
+            #{' '}
+            <b:buttonGroup size="sm">
+                <b:button value="Login" />
+                <b:button value="Sign in" />
+            </b:buttonGroup>
+        </h:form> 
+    </b:navBar>
+    
+    <b:jumbotron>
+        <b:container>
+            <b:row >
+                <b:column col-md="10" id="column">
+                        <b:button value="Info" id="info"/>
+                </b:column>
+            </b:row>
+            <b:row>
+
+                <b:column col-md="3" offset="1">
+                    <h:outputLink value="#"><h:graphicImage name="img/pilot.png"/></h:outputLink>
+                </b:column>
+                <b:column col-md="3" >
+                    <h:outputLink value="#"><h:graphicImage name="img/joy.png"/></h:outputLink>
+                </b:column>
+            </b:row>
+            <b:row>
+           
+                <b:column col-md="3" offset="1">
+                    <h:link value="Pilot Traning"/>
+                </b:column>
+                <b:column col-md="3" offset="1">
+                    <h:link value="Joy Flight"/>
+                </b:column>
+            </b:row>
+        </b:container>
+    </b:jumbotron>
+    
+    <b:container>
+    <b:row>
+    <b:column col-md="4">
+        <h:outputText value="Quick Links" />
+        <b:listLinks>
+            <b:navLink href="http://www.bootsfaces.net" value="Pilot Training"
+                       iconAlign="right"/>
+            <b:navLink></b:navLink>
+            <b:navLink href="http://getbootstrap.com/components/#navbar" value="Joy Flight" iconAlign="right"></b:navLink>
+            <b:navLink></b:navLink>
+    </b:listLinks>
+    </b:column>
+    <b:column col-md="4">
+  
+    </b:column>
+    <b:column col-md="4">
+  
+    </b:column>
+    </b:row>
+    <hr/>
+    <footer>
+    <p>© Company 2014 UTS</p>
+    </footer>
+    </b:container>
+</h:body>
+</html>
