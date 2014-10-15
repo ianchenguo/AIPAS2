@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 
 public class Customer extends Account implements Serializable {
     private static final long serialVersionUID = 1L;
-@NotNull
+    @NotNull
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}∼-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}∼-]+)*"
             + "@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Email format is invalid.")
     @Size(max = 255)

@@ -6,22 +6,45 @@
 package com.aviationhub.domain.activitymanagement.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author ian
  */
 @Entity
-public class Activity implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "ACTIVITYTYPE")
+public abstract class Activity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String title;
+    @Enumerated(EnumType.STRING)
+    private ActivityTypeEnum activityType;
+    private double price;
+    private String provider;
+    private String aircraft;
+    @Enumerated(EnumType.STRING)
+    private ActivityStateEnum activityState;
+    private String activityDesc;
+    
+    @OneToMany(mappedBy = "activity")
+    private List<TimeSlot> timeSlots;
+
+    //getters and setters
     public Long getId() {
         return id;
     }
@@ -30,6 +53,72 @@ public class Activity implements Serializable {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public ActivityTypeEnum getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(ActivityTypeEnum activityType) {
+        this.activityType = activityType;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getAircraft() {
+        return aircraft;
+    }
+
+    public void setAircraft(String aircraft) {
+        this.aircraft = aircraft;
+    }
+
+    public ActivityStateEnum getActivityState() {
+        return activityState;
+    }
+
+    public void setActivityState(ActivityStateEnum activityState) {
+        this.activityState = activityState;
+    }
+
+    public String getActivityDesc() {
+        return activityDesc;
+    }
+
+    public void setActivityDesc(String activityDesc) {
+        this.activityDesc = activityDesc;
+    }
+
+    public List<TimeSlot> getTimeSlots() {
+        return timeSlots;
+    }
+
+    public void setTimeSlots(List<TimeSlot> timeSlots) {
+        this.timeSlots = timeSlots;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
