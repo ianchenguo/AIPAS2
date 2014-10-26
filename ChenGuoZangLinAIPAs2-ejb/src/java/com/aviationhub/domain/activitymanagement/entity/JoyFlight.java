@@ -8,6 +8,8 @@ package com.aviationhub.domain.activitymanagement.entity;
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
@@ -15,7 +17,16 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("JOYFLIGHT")
-public class Joyflight extends Activity implements Serializable {
+
+@NamedQueries({
+    @NamedQuery(name = "findAllJoyflights",
+            query = "select j from JoyFlight j"),
+    @NamedQuery(name = "findOneJoyFlightById",
+            query = "select j from JoyFlight j "
+            + "where j.id = :id")})
+
+public class JoyFlight extends Activity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private int capacity;
 
@@ -27,5 +38,5 @@ public class Joyflight extends Activity implements Serializable {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-    
+
 }

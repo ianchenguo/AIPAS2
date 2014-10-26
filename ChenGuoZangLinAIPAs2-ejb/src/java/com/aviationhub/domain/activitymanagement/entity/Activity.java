@@ -39,6 +39,7 @@ public abstract class Activity implements Serializable {
     private String aircraft;
     @Enumerated(EnumType.STRING)
     private ActivityStateEnum activityState;
+    private String imageUrl;
     private String activityDesc;
     
     @OneToMany(mappedBy = "activity")
@@ -115,6 +116,14 @@ public abstract class Activity implements Serializable {
 
     public void setTimeSlots(List<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     
