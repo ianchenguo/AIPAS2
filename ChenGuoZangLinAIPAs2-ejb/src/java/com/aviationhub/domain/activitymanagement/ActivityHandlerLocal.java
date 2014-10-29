@@ -6,7 +6,6 @@
 package com.aviationhub.domain.activitymanagement;
 
 import com.aviationhub.domain.activitymanagement.entity.Activity;
-import com.aviationhub.domain.activitymanagement.entity.ActivityTypeEnum;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -16,8 +15,12 @@ import javax.ejb.Local;
  */
 @Local
 public interface ActivityHandlerLocal {
-    void setActivityType(ActivityTypeEnum activityType);
-    List<Activity> listActivities();
-    
-    //public ActivityDao getActivityDao(@New JoyFlightJpaDao jfjd);
+
+    List<Activity> listJoyFlights();
+
+    Activity getJoyFlightDetail(long id);
+
+    List<Activity> listPilotTraining();
+
+    Activity getPilotTrainingDetail(long id);
 }

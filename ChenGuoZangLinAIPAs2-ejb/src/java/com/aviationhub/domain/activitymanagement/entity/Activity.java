@@ -34,7 +34,8 @@ public abstract class Activity implements Serializable {
     private String title;
     @Enumerated(EnumType.STRING)
     private ActivityTypeEnum activityType;
-    private double price;
+    //in cents
+    private int price;
     private String provider;
     private String aircraft;
     @Enumerated(EnumType.STRING)
@@ -70,11 +71,11 @@ public abstract class Activity implements Serializable {
         this.activityType = activityType;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

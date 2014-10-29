@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @DiscriminatorValue("CUSTOMER")
-@NamedQuery(name = "findAccount", 
+@NamedQuery(name = "findCustomer", 
         query="select c from Customer c where c.username=:username and c.password=:password")
 
 public class Customer extends Account implements Serializable {

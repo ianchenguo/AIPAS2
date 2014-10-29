@@ -5,44 +5,35 @@
  */
 package com.aviationhub.domain.accountmanagement;
 
+import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.accountmanagement.entity.Customer;
-import java.util.Date;
-import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
  * @author ian
  */
 @Stateless
-@LocalBean
-public class AccountHandler {
+public class AccountHandler implements AccountHandlerLocal {
 
-    @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
-    private EntityManager em;
+    @EJB
+    CustomerJpaDao customerDao;
 
-    public boolean findAccount(String username, String password) {
-        //constructs query
-        Query query = em.createNamedQuery("findAccount");
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        //fetches results
-        List<Customer> customers = query.getResultList();
-        //returns resault
-        return !customers.isEmpty();
+    @Override
+    public Account findCustomer(String username, String password) {
+        return customerDao.getAccount(username, password);
     }
 
-    public void createCustomer(String username, String password, String email) {
+    @Override
+    public void createCustomer(Customer customer) {
         //creates new customer
-        Customer customer = new Customer();
-        customer.setUsername(username);
-        customer.setPassword(password);
-        customer.setEmail(email);
-        customer.setDateOfCreation(new Date());
-        em.persist(customer);
+        //Customer customer = new Customer();
+        //customer.setUsername(username);
+        //customer.setPassword(password);
+        //customer.setEmail(email);
+        //customer.setDateOfCreation(new Date());
+        //em.persist(customer);
+        customerDao.createAccount(customer);
     }
 }

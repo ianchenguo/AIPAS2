@@ -8,6 +8,8 @@ package com.aviationhub.domain.activitymanagement.entity;
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
@@ -15,7 +17,15 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("PILOTTRAINING")
-public class PilotTraining  extends Activity implements Serializable {
+@NamedQueries({
+    @NamedQuery(name = "findAllPilotTrainings",
+            query = "select j from PilotTraining j"),
+    @NamedQuery(name = "findSinglePilotTrainingById",
+            query = "select j from PilotTraining j "
+            + "where j.id = :id")})
+
+public class PilotTraining extends Activity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private String duration;
     private String certificate;
@@ -36,6 +46,5 @@ public class PilotTraining  extends Activity implements Serializable {
     public void setCertificate(String certificate) {
         this.certificate = certificate;
     }
-    
-    
+
 }

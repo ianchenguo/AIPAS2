@@ -23,6 +23,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class TimeSlot implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,15 +33,17 @@ public class TimeSlot implements Serializable {
     private Date startDate;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
-    private Time startTime;
-    private Time endTime;
+    @Temporal(javax.persistence.TemporalType.TIME)
+    private Date startTime;
+    @Temporal(javax.persistence.TemporalType.TIME)
+    private Date endTime;
     private int quantity;
     @Enumerated(EnumType.STRING)
     private TimeSlotStatusEnum status;
-    
+
     @ManyToOne
     private Activity activity;
-    
+
     //getters and setters
     public Long getId() {
         return id;
@@ -66,7 +69,7 @@ public class TimeSlot implements Serializable {
         this.endDate = endDate;
     }
 
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
@@ -74,7 +77,7 @@ public class TimeSlot implements Serializable {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
@@ -106,8 +109,6 @@ public class TimeSlot implements Serializable {
         this.activity = activity;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -132,5 +133,5 @@ public class TimeSlot implements Serializable {
     public String toString() {
         return "com.aviationhub.domain.activitymanagement.entity.TimeSlot[ id=" + id + " ]";
     }
-    
+
 }

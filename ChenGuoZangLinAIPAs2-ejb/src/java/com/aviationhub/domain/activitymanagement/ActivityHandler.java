@@ -6,13 +6,9 @@
 package com.aviationhub.domain.activitymanagement;
 
 import com.aviationhub.domain.activitymanagement.entity.Activity;
-import com.aviationhub.domain.activitymanagement.entity.ActivityTypeEnum;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
 
 /**
  *
@@ -21,37 +17,29 @@ import javax.enterprise.inject.Produces;
 @Stateless 
 public class ActivityHandler implements ActivityHandlerLocal {
 
-    @EJB @Preferred 
-    ActivityDao activityDao;
+    @EJB
+    JoyFlightJpaDao joyFlightDao;
+    @EJB
+    PilotTrainingJpaDao pilotTrainingDao;
     
-    private ActivityTypeEnum activityType;
-
-    /*
     @Override
-    @Produces @Preferred
-    public ActivityDao getActivityDao(@New JoyFlightJpaDao jfjd) {
-
-        switch (activityType) {
-
-            case JOYFLIGHT:
-                return jfjd;
-
-            default:
-                return null;
-        }
-
-    }*/
-
-    @Override
-    public List<Activity> listActivities() {
-        return activityDao.listActivities();
+    public List<Activity> listJoyFlights() {
+        return joyFlightDao.listActivities();
     }
 
-    //getters and setters
     @Override
-    public void setActivityType(ActivityTypeEnum activityType) {
-        this.activityType = activityType;
+    public Activity getJoyFlightDetail(long id) {
+        return joyFlightDao.getSingleActivity(id);
     }
 
+    @Override
+    public List<Activity> listPilotTraining() {
+        return pilotTrainingDao.listActivities();
+    }
+
+    @Override
+    public Activity getPilotTrainingDetail(long id) {
+        return pilotTrainingDao.getSingleActivity(id);
+    }
     
 }
