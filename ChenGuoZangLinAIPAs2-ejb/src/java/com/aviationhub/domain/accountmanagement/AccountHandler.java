@@ -7,8 +7,8 @@ package com.aviationhub.domain.accountmanagement;
 
 import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.accountmanagement.entity.Customer;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -17,23 +17,16 @@ import javax.ejb.Stateless;
 @Stateless
 public class AccountHandler implements AccountHandlerLocal {
 
-    @EJB
+    @Inject
     CustomerJpaDao customerDao;
 
     @Override
     public Account findCustomer(String username, String password) {
-        return customerDao.getAccount(username, password);
+        return customerDao.read(username, password);
     }
 
     @Override
     public void createCustomer(Customer customer) {
-        //creates new customer
-        //Customer customer = new Customer();
-        //customer.setUsername(username);
-        //customer.setPassword(password);
-        //customer.setEmail(email);
-        //customer.setDateOfCreation(new Date());
-        //em.persist(customer);
-        customerDao.createAccount(customer);
+        customerDao.create(customer);
     }
 }

@@ -12,8 +12,6 @@ import com.aviationhub.domain.accountmanagement.entity.Account;
  * @author ian
  */
 public interface AccountDao {
-    public Account getAccount(String username, String password);
-    public void createAccount(Account account);
-    //public Customer getCustomer(String username, String password);
-    //public Administrator getAdministrator(String username, String password);
+    public Account read(String username, String password);
+    public void create(Account account);
 }

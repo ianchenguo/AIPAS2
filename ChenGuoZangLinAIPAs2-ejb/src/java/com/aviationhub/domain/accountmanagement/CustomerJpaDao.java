@@ -7,8 +7,7 @@ package com.aviationhub.domain.accountmanagement;
 
 import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.accountmanagement.entity.Customer;
-import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -17,15 +16,14 @@ import javax.persistence.Query;
  *
  * @author ian
  */
-@Stateless
-@LocalBean
+@Dependent
 public class CustomerJpaDao implements AccountDao {
 
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
     private EntityManager em;
 
     @Override
-    public Account getAccount(String username, String password) {
+    public Account read(String username, String password) {
         //constructs query
         Query query = em.createNamedQuery("findCustomer");
         query.setParameter("username", username);
@@ -37,7 +35,7 @@ public class CustomerJpaDao implements AccountDao {
     }
 
     @Override
-    public void createAccount(Account account) {
+    public void create(Account account) {
         em.persist(account);
     }
 
