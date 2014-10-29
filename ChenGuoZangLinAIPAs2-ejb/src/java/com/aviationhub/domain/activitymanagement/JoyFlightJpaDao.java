@@ -8,8 +8,7 @@ package com.aviationhub.domain.activitymanagement;
 import com.aviationhub.domain.activitymanagement.entity.Activity;
 import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,8 +17,7 @@ import javax.persistence.Query;
  *
  * @author ian
  */
-@Stateless
-@LocalBean
+@Dependent
 public class JoyFlightJpaDao implements ActivityDao {
 
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")

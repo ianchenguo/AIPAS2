@@ -7,8 +7,8 @@ package com.aviationhub.domain.activitymanagement;
 
 import com.aviationhub.domain.activitymanagement.entity.Activity;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -17,9 +17,9 @@ import javax.ejb.Stateless;
 @Stateless 
 public class ActivityHandler implements ActivityHandlerLocal {
 
-    @EJB
+    @Inject
     JoyFlightJpaDao joyFlightDao;
-    @EJB
+    @Inject
     PilotTrainingJpaDao pilotTrainingDao;
     
     @Override

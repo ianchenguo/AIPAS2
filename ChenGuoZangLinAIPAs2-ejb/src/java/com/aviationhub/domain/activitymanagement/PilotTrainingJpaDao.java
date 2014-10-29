@@ -8,8 +8,7 @@ package com.aviationhub.domain.activitymanagement;
 import com.aviationhub.domain.activitymanagement.entity.Activity;
 import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,8 +17,7 @@ import javax.persistence.Query;
  *
  * @author ian
  */
-@Stateless
-@LocalBean
+@Dependent
 public class PilotTrainingJpaDao implements ActivityDao {
 
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
@@ -36,7 +34,4 @@ public class PilotTrainingJpaDao implements ActivityDao {
     public Activity getSingleActivity(long id) {
         return em.find(PilotTraining.class, id);
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }
