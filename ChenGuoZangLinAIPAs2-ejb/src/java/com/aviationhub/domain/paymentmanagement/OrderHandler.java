@@ -47,6 +47,9 @@ public class OrderHandler implements OrderHandlerLocal {
     OrderDao orderDao;
     @Inject
     TimeSlotDao timeSlotDao;
+    @Inject
+    PaymentDao paymentDao;
+    
     @EJB
     ActivityHandler activityHandler;
 
@@ -204,6 +207,8 @@ public class OrderHandler implements OrderHandlerLocal {
         Payment payment = new Payment
         (order, response.getCoreResponse().getSuccess(), response.getCoreResponse().getStatus_message(),
                 response.getError(), response.getError_description(), messageList);
+        
+        paymentDao.create(payment);
     }
 
 }

@@ -24,7 +24,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "findAllPayments",
+    @NamedQuery(name = "selectAllPayments",
             query = "select p from Payment p"),
     })
 public class Payment implements Serializable {

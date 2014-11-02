@@ -5,11 +5,13 @@
  */
 package com.aviationhub.domain.paymentmanagement;
 
+import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.paymentmanagement.pernsistantentity.Payment;
 import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,7 +30,11 @@ public class PaymentJpaDao implements PaymentDao {
 
     @Override
     public List<Payment> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //constructs query
+        Query query = em.createNamedQuery("selectAllPayments");
+        //fetches results
+        List<Payment> payments = query.getResultList();
+        return payments;
     }
 
     @Override
