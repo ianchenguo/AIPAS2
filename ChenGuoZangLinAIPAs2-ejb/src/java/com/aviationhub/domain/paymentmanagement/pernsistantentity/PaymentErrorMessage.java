@@ -30,8 +30,7 @@ public class PaymentErrorMessage implements Serializable {
     public PaymentErrorMessage() {
     }
 
-    public PaymentErrorMessage(Long id, String code, String message, String param) {
-        this.id = id;
+    public PaymentErrorMessage(String code, String message, String param) {
         this.code = code;
         this.message = message;
         this.param = param;

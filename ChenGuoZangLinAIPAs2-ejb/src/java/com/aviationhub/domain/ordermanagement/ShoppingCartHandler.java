@@ -8,9 +8,8 @@ package com.aviationhub.domain.ordermanagement;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
 import com.aviationhub.domain.paymentmanagement.OrderHandlerLocal;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -111,5 +110,10 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
     //public ResponseDto checkout(CreditCardDto creditCardDto) {
     //    return orderHandler.placeOrder(pendingOrder, creditCardDto);
     //}
+
+    @Override
+    public List<BookingOrderLine> listShoppingCartItems() {
+        return orderLines;
+    }
 
 }

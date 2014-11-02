@@ -195,18 +195,15 @@ public class OrderHandler implements OrderHandlerLocal {
     }
 
     private void storePaymentResult(BookingOrder order, ChargeResponse response) {
-        Payment payment = new Payment();
-        payment.setOrder(order);
-        payment.setSuccess(response.getCoreResponse().getSuccess());
-        payment.setStatusMessage(response.getCoreResponse().getStatus_message());
-        payment.setError(response.getError());
-        payment.setErrorDescription(response.getError_description());
         
         List<PaymentErrorMessage> messageList = new ArrayList<>();
         for (ErrorMessage em : response.getMessages()) {
-            ErrorMessage msg = new ErrorMessage();
-            
+            PaymentErrorMessage msg = new PaymentErrorMessage(em.getCode(), em.getMessage(), em.getParam());
+            messageList.add(msg);
         }
+        Payment payment = new Payment
+        (order, response.getCoreResponse().getSuccess(), response.getCoreResponse().getStatus_message(),
+                response.getError(), response.getError_description(), messageList);
     }
 
 }

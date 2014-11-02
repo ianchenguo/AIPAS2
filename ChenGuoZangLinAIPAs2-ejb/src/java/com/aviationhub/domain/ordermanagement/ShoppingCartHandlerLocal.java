@@ -9,6 +9,7 @@ import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
 import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
 import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -27,6 +28,9 @@ public interface ShoppingCartHandlerLocal {
     public void removeFromShoppingCart(BookingOrderLine orderItem);
 
     public void alterItemQuantity(int itemIndex, int quantity);
+    
+    public List<BookingOrderLine>listShoppingCartItems();
+    
     //public void commitToOrder();
     
     //public ResponseDto checkout(CreditCardDto creditCardDto);
