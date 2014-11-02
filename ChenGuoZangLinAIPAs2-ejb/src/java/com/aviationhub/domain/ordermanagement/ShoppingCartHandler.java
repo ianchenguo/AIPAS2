@@ -1,0 +1,100 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.aviationhub.domain.ordermanagement;
+
+import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
+import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
+import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.ejb.Stateful;
+import javax.inject.Inject;
+
+/**
+ *
+ * @author ian
+ */
+@Stateful
+public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializable {
+
+    @Inject
+    OrderDao orderDao;
+
+    //a shopping cart is a pending order
+    private BookingOrder pendingOrder;
+
+    @PostConstruct
+    private void init() {
+        pendingOrder = new BookingOrder();
+    }
+
+    @Override
+    public void addToShoppingCart(BookingOrderLine orderItem) {
+
+        BookingOrderLine itemInCart = findItemInCart(orderItem);
+        if (itemInCart != null) {
+            int currentQuantity = itemInCart.getQuantity();
+            itemInCart.setQuantity(orderItem.getQuantity() + currentQuantity);
+        } else {
+            pendingOrder.getOrderLines().add(orderItem);
+        }
+
+        
+    }
+
+    @Override
+    public void removeFromShoppingCart(BookingOrderLine orderItem) {
+        pendingOrder.getOrderLines().remove(orderItem);
+    }
+
+    private BookingOrderLine findItemInCart(BookingOrderLine orderItem) {
+        boolean isSameActivity;
+        boolean isSameTimeSlot;
+        for (BookingOrderLine ol : pendingOrder.getOrderLines()) {
+
+            isSameActivity = ol.getActivity().getId().equals(orderItem.getActivity().getId());
+            isSameTimeSlot = ol.getTimeSlotId().equals(orderItem.getTimeSlotId());
+
+            if (isSameActivity && isSameTimeSlot) {
+                return ol;
+            }
+        }
+        return null;
+    }
+
+    /*
+     @Override
+     public BookingOrder getPendingOrder(Account account) {
+     //calls the dao to retrieve a list of pending orders, containing zero or one element
+     List<BookingOrder> orders = orderDao.selectByAccountAndOrderStatus(account, BookingOrderStatusEnum.PENDING);
+     //if the list is empty, create a pending order for the account
+     if (orders.isEmpty()) {
+     BookingOrder order = new BookingOrder();
+     order.setAccount(account);
+     order.setOrderStatus(BookingOrderStatusEnum.PENDING);
+     return order;
+     } else {
+     //else return the first element in the result list
+     return orders.get(0);
+     }
+     }*/
+    @Override
+    public void alterItemQuantity(int itemIndex, int quantity) {
+        BookingOrderLine orderline = pendingOrder.getOrderLines().get(itemIndex);
+        orderline.setQuantity(quantity);
+    }
+
+    // @Override
+    //public void commitToOrder() {
+    //    pendingOrder.setOrderStatus(BookingOrderStatusEnum.COMMITED);
+    //    orderDao.create(pendingOrder);
+    //}
+    //getters and setters
+    @Override
+    public BookingOrder getPendingOrder() {
+        return pendingOrder;
+    }
+
+}

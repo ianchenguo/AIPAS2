@@ -6,8 +6,6 @@
 package com.aviationhub.domain.paymentmanagement.transportEntity;
 
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -16,8 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CardRequest implements Serializable{
     private String publishable_api_key;
     private String number;
-    private int expiry_month;
-    private int expiry_year;
+    private String expiry_month;
+    private String expiry_year;
     private String cvc;
     private String name;
     private String address_line1;
@@ -35,19 +33,19 @@ public class CardRequest implements Serializable{
         this.number = number;
     }
 
-    public int getExpiry_month() {
+    public String getExpiry_month() {
         return expiry_month;
     }
 
-    public void setExpiry_month(int expiry_month) {
+    public void setExpiry_month(String expiry_month) {
         this.expiry_month = expiry_month;
     }
 
-    public int getExpiry_year() {
+    public String getExpiry_year() {
         return expiry_year;
     }
 
-    public void setExpiry_year(int expiry_year) {
+    public void setExpiry_year(String expiry_year) {
         this.expiry_year = expiry_year;
     }
 

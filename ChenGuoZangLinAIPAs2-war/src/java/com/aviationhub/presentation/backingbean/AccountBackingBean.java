@@ -7,14 +7,14 @@ package com.aviationhub.presentation.backingbean;
 
 import com.aviationhub.domain.accountmanagement.AccountHandlerLocal;
 import com.aviationhub.domain.accountmanagement.entity.Customer;
-import com.aviationhub.domain.bookingmanagement.BookingHandlerLocal;
-import com.aviationhub.domain.bookingmanagement.entity.ShoppingCart;
-import com.aviationhub.domain.paymentmanagement.PaymentHandler;
-import com.aviationhub.domain.paymentmanagement.PaymentHandlerLocal;
+import com.aviationhub.domain.ordermanagement.ShoppingCartHandlerLocal;
+import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
+import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
+import com.aviationhub.domain.paymentmanagement.OrderHandlerLocal;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 
@@ -27,15 +27,15 @@ import javax.enterprise.context.SessionScoped;
 public class AccountBackingBean implements Serializable {
 
     private Customer customer = new Customer();
-    private ShoppingCart cart = new ShoppingCart();
     private boolean isLoggedIn = false;
+    private BookingOrder pendingOrder = new BookingOrder();
 
     @EJB
     AccountHandlerLocal ah;
     @EJB
-    BookingHandlerLocal bh;
+    ShoppingCartHandlerLocal sh;
     @EJB
-    PaymentHandlerLocal ph;
+    OrderHandlerLocal ph;
 
     /**
      * Creates a new instance of AccountBackingBean
@@ -67,20 +67,42 @@ public class AccountBackingBean implements Serializable {
         this.isLoggedIn = true;
     }
 
-    public void createShoppingCart() {
-        if (bh.getShoppingChartByAccount(customer) == null) {
-            ShoppingCart newShoppingCart = new ShoppingCart();
-            newShoppingCart.setAccount(customer);
-            bh.createShoppingCart(newShoppingCart);
-        }
-        cart = bh.getShoppingChartByAccount(customer);
+    /*
+     public void createShoppingCart() {
+     if (bh.getShoppingChartByAccount(customer) == null) {
+     ShoppingCart newShoppingCart = new ShoppingCart();
+     newShoppingCart.setAccount(customer);
+     bh.createShoppingCart(newShoppingCart);
+     }
+     cart = bh.getShoppingChartByAccount(customer);
+     }
+
+     public void charge() {
+     ph.charge();
+     }*/
+    public List<BookingOrderLine> viewShoppingItems() {
+        getPendingOrder();
+        return pendingOrder.getOrderLines();
     }
 
-    public void charge() {
-        ph.charge();
+    private void getPendingOrder() {
+        this.pendingOrder = sh.getPendingOrder();
+    }
+    
+    public void addDummyItem(){
+        //creates a dummy item
+        BookingOrderLine cartItem1 = new BookingOrderLine();
+        cartItem1.setStartDate(new Date());
+        cartItem1.setQuantity(1);
+        sh.addToShoppingCart(cartItem1);
     }
     
     
+    
+    
+    
+    
+
     //getters and setters
     public Customer getCustomer() {
         return customer;
@@ -92,10 +114,6 @@ public class AccountBackingBean implements Serializable {
 
     public boolean isIsLoggedIn() {
         return isLoggedIn;
-    }
-
-    public ShoppingCart getCart() {
-        return cart;
     }
 
 }

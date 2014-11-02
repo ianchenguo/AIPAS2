@@ -6,17 +6,15 @@
 package com.aviationhub.domain.paymentmanagement.transportEntity;
 
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ian
  */
-public class ChargePartialResponse implements Serializable{
+public class ChargeCoreResponse implements Serializable{
 
     private String token;
-    private boolean success;
+    private String success;
     private int amount;
     private String currency;
     private String description;
@@ -27,7 +25,7 @@ public class ChargePartialResponse implements Serializable{
     private String error_message;
     private CardResponse card;
     
-    public ChargePartialResponse() {
+    public ChargeCoreResponse() {
         card = new CardResponse();
     }
 
@@ -39,11 +37,11 @@ public class ChargePartialResponse implements Serializable{
         this.token = token;
     }
 
-    public boolean isSuccess() {
+    public String isSuccess() {
         return success;
     }
 
-    public void setSuccess(boolean success) {
+    public void setSuccess(String success) {
         this.success = success;
     }
 

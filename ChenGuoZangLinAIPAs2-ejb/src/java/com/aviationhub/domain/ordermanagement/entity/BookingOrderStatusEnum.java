@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.aviationhub.domain.paymentmanagement;
-
-import javax.ejb.Local;
+package com.aviationhub.domain.ordermanagement.entity;
 
 /**
  *
  * @author ian
  */
-@Local
-public interface PaymentHandlerLocal {
-    public void charge();
+public enum BookingOrderStatusEnum {
+    PENDING,
+    COMMITED,
+    FINALISED,
+    PAID
 }

@@ -38,5 +38,4 @@ public class JoyFlight extends Activity implements Serializable {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-
 }

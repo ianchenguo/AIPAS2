@@ -8,22 +8,20 @@ package com.aviationhub.domain.paymentmanagement.transportEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ian
  */
 public class ChargeResponse implements Serializable{
-    private ChargePartialResponse response;
-    private boolean captured;
-    private boolean authorisation_expired;
+    private ChargeCoreResponse coreResponse;
+    private String captured;
+    private String authorisation_expired;
     private List<String> transfer;
     private int amount_refunded;
     private int total_fees;
     private int merchant_entitlement;
-    private boolean refund_pending;
+    private String refund_pending;
     private String settlement_currency;
     private String error;
     private String error_description;
@@ -31,32 +29,32 @@ public class ChargeResponse implements Serializable{
     private String charge_token;
 
     public ChargeResponse() {
-        response = new ChargePartialResponse();
+        coreResponse = new ChargeCoreResponse();
         messages = new ArrayList<>();
     }
     
     
-    public ChargePartialResponse getResponse() {
-        return response;
+    public ChargeCoreResponse getCoreResponse() {
+        return coreResponse;
     }
 
-    public void setResponse(ChargePartialResponse response) {
-        this.response = response;
+    public void setCoreResponse(ChargeCoreResponse response) {
+        this.coreResponse = response;
     }
 
-    public boolean isCaptured() {
+    public String isCaptured() {
         return captured;
     }
 
-    public void setCaptured(boolean captured) {
+    public void setCaptured(String captured) {
         this.captured = captured;
     }
 
-    public boolean isAuthorisation_expired() {
+    public String isAuthorisation_expired() {
         return authorisation_expired;
     }
 
-    public void setAuthorisation_expired(boolean authorisation_expired) {
+    public void setAuthorisation_expired(String authorisation_expired) {
         this.authorisation_expired = authorisation_expired;
     }
 
@@ -92,11 +90,11 @@ public class ChargeResponse implements Serializable{
         this.merchant_entitlement = merchant_entitlement;
     }
 
-    public boolean isRefund_pending() {
+    public String isRefund_pending() {
         return refund_pending;
     }
 
-    public void setRefund_pending(boolean refund_pending) {
+    public void setRefund_pending(String refund_pending) {
         this.refund_pending = refund_pending;
     }
 

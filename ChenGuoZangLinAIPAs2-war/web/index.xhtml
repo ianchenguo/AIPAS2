@@ -44,12 +44,9 @@
             </h:column>
         </h:dataTable>
 
-        <h1>create and fetch a shopping cart</h1>
-        <h:form>
-            <h:commandButton action="#{accountBackingBean.createShoppingCart()}" value="create"/>
-        </h:form>
+        <h1>view shopping cart</h1>
 
-        <h:dataTable value="#{accountBackingBean.cart}" var="cart">
+        <h:dataTable value="#{accountBackingBean.viewShoppingItems()}" var="cart">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="shopping cart id" />
@@ -58,32 +55,21 @@
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="account id" />
+                    <h:outputText value="start date" />
                 </f:facet>
-                <h:outputText value="#{cart.account.id}" />
-            </h:column>
-        </h:dataTable>
-
-        <h:dataTable value="#{accountBackingBean.cart.items}" var="item">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="item id" />
-                </f:facet>
-                <h:outputText value="#{item.id}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="activity title" />
-                </f:facet>
-                <h:outputText value="#{item.timeslot.activity.title}" />
+                <h:outputText value="#{cart.startDate}" />
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="quantity" />
                 </f:facet>
-                <h:outputText value="#{item.quantity}" />
+                <h:outputText value="#{cart.quantity}" />
             </h:column>
         </h:dataTable>
+
+        <h:form>
+            <h:commandButton action="#{accountBackingBean.addDummyItem()}" value="add dummy item"/>
+        </h:form>
 
 
         <h1>restful service - charge</h1>

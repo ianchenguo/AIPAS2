@@ -6,8 +6,6 @@
 package com.aviationhub.domain.paymentmanagement.transportEntity;
 
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 
@@ -22,7 +20,7 @@ public class ChargeRequest implements Serializable{
     private int amount;
     private String ip_address;
     private String currency;
-    private boolean capture = true;
+    private String capture = "true";
     private CardRequest card;
 
     public ChargeRequest() {
@@ -78,11 +76,11 @@ public class ChargeRequest implements Serializable{
         this.currency = currency;
     }
 
-    public boolean isCapture() {
+    public String isCapture() {
         return capture;
     }
 
-    public void setCapture(boolean capture) {
+    public void setCapture(String capture) {
         this.capture = capture;
     }
     
