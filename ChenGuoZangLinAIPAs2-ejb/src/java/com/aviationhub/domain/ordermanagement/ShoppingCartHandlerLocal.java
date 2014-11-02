@@ -21,6 +21,7 @@ public interface ShoppingCartHandlerLocal {
     //public BookingOrder getPendingOrder();
     //public BookingOrder getPendingOrder(Account account);
 
+    
     public void addToShoppingCart(BookingOrderLine orderItem);
 
     public void removeFromShoppingCart(BookingOrderLine orderItem);
@@ -28,5 +29,5 @@ public interface ShoppingCartHandlerLocal {
     public void alterItemQuantity(int itemIndex, int quantity);
     //public void commitToOrder();
     
-    public ResponseDto checkout(CreditCardDto creditCardDto);
+    //public ResponseDto checkout(CreditCardDto creditCardDto);
 }

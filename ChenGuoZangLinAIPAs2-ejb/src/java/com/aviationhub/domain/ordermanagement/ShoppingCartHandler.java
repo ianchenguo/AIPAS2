@@ -11,6 +11,7 @@ import com.aviationhub.domain.paymentmanagement.OrderHandlerLocal;
 import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
 import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -31,6 +32,8 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
 
     //a shopping cart is a pending order
     private BookingOrder pendingOrder;
+    
+    private List<BookingOrderLine> orderLines;
 
     @PostConstruct
     private void init() {
@@ -45,7 +48,7 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
             int currentQuantity = itemInCart.getQuantity();
             itemInCart.setQuantity(orderItem.getQuantity() + currentQuantity);
         } else {
-            pendingOrder.getOrderLines().add(orderItem);
+            orderLines.add(orderItem);
         }
 
         
@@ -53,13 +56,13 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
 
     @Override
     public void removeFromShoppingCart(BookingOrderLine orderItem) {
-        pendingOrder.getOrderLines().remove(orderItem);
+        orderLines.remove(orderItem);
     }
 
     private BookingOrderLine findItemInCart(BookingOrderLine orderItem) {
         boolean isSameActivity;
         boolean isSameTimeSlot;
-        for (BookingOrderLine ol : pendingOrder.getOrderLines()) {
+        for (BookingOrderLine ol : orderLines) {
 
             isSameActivity = ol.getActivity().getId().equals(orderItem.getActivity().getId());
             isSameTimeSlot = ol.getTimeSlotId().equals(orderItem.getTimeSlotId());
@@ -104,9 +107,9 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
     //    return pendingOrder;
     //}
 
-    @Override
-    public ResponseDto checkout(CreditCardDto creditCardDto) {
-        return orderHandler.placeOrder(pendingOrder, creditCardDto);
-    }
+    //@Override
+    //public ResponseDto checkout(CreditCardDto creditCardDto) {
+    //    return orderHandler.placeOrder(pendingOrder, creditCardDto);
+    //}
 
 }
