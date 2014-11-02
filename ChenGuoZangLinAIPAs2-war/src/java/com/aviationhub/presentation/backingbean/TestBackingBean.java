@@ -7,6 +7,8 @@ package com.aviationhub.presentation.backingbean;
 
 import com.aviationhub.domain.activitymanagement.ActivityHandlerLocal;
 import com.aviationhub.domain.activitymanagement.entity.Activity;
+import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
+import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -28,19 +30,19 @@ public class TestBackingBean implements Serializable {
     @EJB
     ActivityHandlerLocal activityHandler;
 
-    public List<Activity> listJoyFlights() {
+    public List<JoyFlight> listJoyFlights() {
         return activityHandler.listJoyFlights();
     }
 
-    public List<Activity> listPilotTraining() {
+    public List<PilotTraining> listPilotTraining() {
         return activityHandler.listPilotTraining();
     }
 
-    public Activity getJoyFlightDetail(long id) {
+    public JoyFlight getJoyFlightDetail(long id) {
         return activityHandler.getJoyFlightDetail(id);
     }
 
-    public Activity getPilotTrainingDetail(long id) {
+    public PilotTraining getPilotTrainingDetail(long id) {
         return activityHandler.getPilotTrainingDetail(id);
     }
 

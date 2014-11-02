@@ -6,6 +6,8 @@
 package com.aviationhub.domain.activitymanagement;
 
 import com.aviationhub.domain.activitymanagement.entity.Activity;
+import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
+import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -23,22 +25,22 @@ public class ActivityHandler implements ActivityHandlerLocal {
     PilotTrainingJpaDao pilotTrainingDao;
     
     @Override
-    public List<Activity> listJoyFlights() {
+    public List<JoyFlight> listJoyFlights() {
         return joyFlightDao.listActivities();
     }
 
     @Override
-    public Activity getJoyFlightDetail(long id) {
+    public JoyFlight getJoyFlightDetail(long id) {
         return joyFlightDao.getSingleActivity(id);
     }
 
     @Override
-    public List<Activity> listPilotTraining() {
+    public List<PilotTraining> listPilotTraining() {
         return pilotTrainingDao.listActivities();
     }
 
     @Override
-    public Activity getPilotTrainingDetail(long id) {
+    public PilotTraining getPilotTrainingDetail(long id) {
         return pilotTrainingDao.getSingleActivity(id);
     }
     

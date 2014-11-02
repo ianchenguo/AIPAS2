@@ -5,7 +5,6 @@
  */
 package com.aviationhub.domain.activitymanagement;
 
-import com.aviationhub.domain.activitymanagement.entity.Activity;
 import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
 import java.util.List;
 import javax.enterprise.context.Dependent;
@@ -18,29 +17,20 @@ import javax.persistence.Query;
  * @author ian
  */
 @Dependent
-public class JoyFlightJpaDao implements ActivityDao {
+public class JoyFlightJpaDao implements ActivityDao<JoyFlight> {
 
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
     private EntityManager em;
 
     @Override
-    public List<Activity> listActivities() {
+    public List<JoyFlight> listActivities() {
         Query query = em.createNamedQuery("findAllJoyflights");
-        List<Activity> joyFlights = query.getResultList();
+        List<JoyFlight> joyFlights = query.getResultList();
         return joyFlights;
     }
 
     @Override
-    public Activity getSingleActivity(long id) {
-        /*
-        //constructs query
-        Query query = em.createNamedQuery("findOneJoyFlightById");
-        query.setParameter("id", id);
-        //fetches results
-        Activity joyFlight = (Activity) query.getSingleResult();
-        //returns resault
-        return joyFlight;*/
+    public JoyFlight getSingleActivity(long id) {
         return em.find(JoyFlight.class, id);
     }
 }
-

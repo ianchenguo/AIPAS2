@@ -6,6 +6,8 @@
 package com.aviationhub.domain.activitymanagement;
 
 import com.aviationhub.domain.activitymanagement.entity.Activity;
+import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
+import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -16,11 +18,11 @@ import javax.ejb.Local;
 @Local
 public interface ActivityHandlerLocal {
 
-    List<Activity> listJoyFlights();
+    List<JoyFlight> listJoyFlights();
 
-    Activity getJoyFlightDetail(long id);
+    JoyFlight getJoyFlightDetail(long id);
 
-    List<Activity> listPilotTraining();
+    List<PilotTraining> listPilotTraining();
 
-    Activity getPilotTrainingDetail(long id);
+    PilotTraining getPilotTrainingDetail(long id);
 }

@@ -5,14 +5,14 @@
  */
 package com.aviationhub.domain.activitymanagement;
 
-import com.aviationhub.domain.activitymanagement.entity.Activity;
 import java.util.List;
 
 /**
  *
  * @author ian
+ * @param <A>
  */
-public interface ActivityDao {
-    public List<Activity> listActivities();
-    public Activity getSingleActivity(long id);
+public interface ActivityDao<A> {
+    public List<A> listActivities();
+    public A getSingleActivity(long id);
 }
