@@ -5,9 +5,10 @@
  */
 package com.aviationhub.domain.ordermanagement;
 
-import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
+import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
+import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
 import javax.ejb.Local;
 
 /**
@@ -17,7 +18,7 @@ import javax.ejb.Local;
 @Local
 public interface ShoppingCartHandlerLocal {
     
-    public BookingOrder getPendingOrder();
+    //public BookingOrder getPendingOrder();
     //public BookingOrder getPendingOrder(Account account);
 
     public void addToShoppingCart(BookingOrderLine orderItem);
@@ -26,4 +27,6 @@ public interface ShoppingCartHandlerLocal {
 
     public void alterItemQuantity(int itemIndex, int quantity);
     //public void commitToOrder();
+    
+    public ResponseDto checkout(CreditCardDto creditCardDto);
 }

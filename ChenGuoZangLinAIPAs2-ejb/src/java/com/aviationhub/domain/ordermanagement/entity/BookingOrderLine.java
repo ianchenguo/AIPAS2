@@ -29,9 +29,6 @@ public class BookingOrderLine implements Serializable {
     private Long id;
 
     @ManyToOne
-    private BookingOrder bookingOrder;
-
-    @ManyToOne
     private Activity activity;
 
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -47,21 +44,29 @@ public class BookingOrderLine implements Serializable {
     //in cents
     private int subTotal;
 
+    public BookingOrderLine() {
+    }
+
+    public BookingOrderLine(Activity activity, Date startDate, Date endDate, Date startTime, 
+            Date endTime, Long timeSlotId, int quantity, int subTotal) {
+        this.activity = activity;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.timeSlotId = timeSlotId;
+        this.quantity = quantity;
+        this.subTotal = subTotal;
+    }
+    
+    
+
     public Long getTimeSlotId() {
         return timeSlotId;
     }
 
     public void setTimeSlotId(Long timeSlotId) {
         this.timeSlotId = timeSlotId;
-    }
-    
-    
-    public BookingOrder getBookingOrder() {
-        return bookingOrder;
-    }
-
-    public void setBookingOrder(BookingOrder bookingOrder) {
-        this.bookingOrder = bookingOrder;
     }
 
     public Activity getActivity() {

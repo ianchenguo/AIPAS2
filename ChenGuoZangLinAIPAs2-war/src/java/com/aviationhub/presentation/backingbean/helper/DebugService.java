@@ -5,7 +5,7 @@
  */
 package com.aviationhub.presentation.backingbean.helper;
 
-import com.aviationhub.domain.paymentmanagement.transportEntity.ChargeRequest;
+import com.aviationhub.domain.paymentmanagement.outertransportentity.ChargeRequest;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

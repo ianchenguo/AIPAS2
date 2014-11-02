@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.aviationhub.domain.paymentmanagement.transportEntity;
+package com.aviationhub.domain.paymentmanagement.outertransportentity;
 
 import java.io.Serializable;
 
@@ -37,7 +37,7 @@ public class ChargeCoreResponse implements Serializable{
         this.token = token;
     }
 
-    public String isSuccess() {
+    public String getSuccess() {
         return success;
     }
 

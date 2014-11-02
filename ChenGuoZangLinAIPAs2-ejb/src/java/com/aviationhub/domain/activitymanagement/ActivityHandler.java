@@ -5,9 +5,9 @@
  */
 package com.aviationhub.domain.activitymanagement;
 
-import com.aviationhub.domain.activitymanagement.entity.Activity;
 import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
 import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
+import com.aviationhub.domain.activitymanagement.entity.TimeSlot;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,21 +16,23 @@ import javax.inject.Inject;
  *
  * @author ian
  */
-@Stateless 
+@Stateless
 public class ActivityHandler implements ActivityHandlerLocal {
 
     @Inject
     JoyFlightJpaDao joyFlightDao;
     @Inject
     PilotTrainingJpaDao pilotTrainingDao;
-    
+    @Inject
+    TimeSlotJpaDao timeSlotDao;
+
     @Override
     public List<JoyFlight> listJoyFlights() {
         return joyFlightDao.listActivities();
     }
 
     @Override
-    public JoyFlight getJoyFlightDetail(long id) {
+    public JoyFlight getJoyFlightDetail(Long id) {
         return joyFlightDao.getSingleActivity(id);
     }
 
@@ -40,8 +42,21 @@ public class ActivityHandler implements ActivityHandlerLocal {
     }
 
     @Override
-    public PilotTraining getPilotTrainingDetail(long id) {
+    public PilotTraining getPilotTrainingDetail(Long id) {
         return pilotTrainingDao.getSingleActivity(id);
     }
-    
+
+    @Override
+    public boolean deductTimeSlotQuantity(Long timeSlotId, int subtractedQuantity) {
+
+        TimeSlot ts = timeSlotDao.selectById(timeSlotId);
+        int quantity = ts.getQuantity() - subtractedQuantity;
+        if (quantity >= 0) {
+            ts.setQuantity(quantity);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
 }

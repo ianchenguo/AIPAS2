@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.aviationhub.domain.paymentmanagement.transportEntity;
+package com.aviationhub.domain.paymentmanagement.innertransportentity;
 
+import com.aviationhub.domain.paymentmanagement.outertransportentity.ErrorMessage;
 import java.util.List;
 
 /**
  *
  * @author ian
  */
-public class ChargeResponseDto {
+public class ResponseDto {
 
     private String error;
     private String error_description;

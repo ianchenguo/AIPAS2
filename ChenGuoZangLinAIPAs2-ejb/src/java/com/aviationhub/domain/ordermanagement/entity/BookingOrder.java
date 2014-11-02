@@ -6,9 +6,12 @@
 package com.aviationhub.domain.ordermanagement.entity;
 
 import com.aviationhub.domain.accountmanagement.entity.Account;
+import com.aviationhub.domain.accountmanagement.entity.Customer;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -44,10 +48,10 @@ public class BookingOrder implements Serializable {
     private Long id;
     //price in cents
     private int totalPrice;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<BookingOrderLine> orderLines;
     @ManyToOne
-    private Account account;
+    private Customer account;
     private String firstName;
     private String lastName;
     private String addressLine1;
@@ -60,12 +64,19 @@ public class BookingOrder implements Serializable {
     private String cellPhoneNo;
     @Enumerated(EnumType.STRING)
     private BookingOrderStatusEnum orderStatus;
+    @Temporal(javax.persistence.TemporalType.TIME)
+    private Date placeTime;
 
-    /**
-     * Constructor
-     */
     public BookingOrder() {
         this.orderLines = new ArrayList<>();
+    }
+
+    public Date getPlaceTime() {
+        return placeTime;
+    }
+
+    public void setPlaceTime(Date placeTime) {
+        this.placeTime = placeTime;
     }
     
     public List<BookingOrderLine> getOrderLines() {
@@ -108,11 +119,11 @@ public class BookingOrder implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public Account getAccount() {
+    public Customer getAccount() {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(Customer account) {
         this.account = account;
     }
 

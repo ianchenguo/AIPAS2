@@ -11,7 +11,7 @@ package com.aviationhub.domain.ordermanagement.entity;
  */
 public enum BookingOrderStatusEnum {
     PENDING,
-    COMMITED,
     FINALISED,
+    FAILED,
     PAID
 }

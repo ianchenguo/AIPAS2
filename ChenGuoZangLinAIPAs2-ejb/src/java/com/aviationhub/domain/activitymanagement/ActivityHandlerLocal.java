@@ -5,7 +5,6 @@
  */
 package com.aviationhub.domain.activitymanagement;
 
-import com.aviationhub.domain.activitymanagement.entity.Activity;
 import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
 import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
 import java.util.List;
@@ -18,11 +17,14 @@ import javax.ejb.Local;
 @Local
 public interface ActivityHandlerLocal {
 
-    List<JoyFlight> listJoyFlights();
+    public List<JoyFlight> listJoyFlights();
 
-    JoyFlight getJoyFlightDetail(long id);
+    public JoyFlight getJoyFlightDetail(Long id);
 
-    List<PilotTraining> listPilotTraining();
+    public List<PilotTraining> listPilotTraining();
 
-    PilotTraining getPilotTrainingDetail(long id);
+    public PilotTraining getPilotTrainingDetail(Long id);
+
+    public boolean deductTimeSlotQuantity(Long timeSlotId, int subtractedQuantity);
+
 }

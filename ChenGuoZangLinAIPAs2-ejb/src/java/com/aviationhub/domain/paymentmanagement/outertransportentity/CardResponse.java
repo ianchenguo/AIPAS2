@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.aviationhub.domain.paymentmanagement.transportEntity;
+package com.aviationhub.domain.paymentmanagement.outertransportentity;
 
 import java.io.Serializable;
 
@@ -11,12 +11,12 @@ import java.io.Serializable;
  *
  * @author ian
  */
-public class CardRequest implements Serializable{
-    private String publishable_api_key;
-    private String number;
+public class CardResponse implements Serializable{
+    private String token;
+    private String scheme;
+    private String display_number;
     private String expiry_month;
     private String expiry_year;
-    private String cvc;
     private String name;
     private String address_line1;
     private String address_line2;
@@ -25,12 +25,28 @@ public class CardRequest implements Serializable{
     private String address_state;
     private String address_country;
 
-    public String getNumber() {
-        return number;
+    public String getToken() {
+        return token;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
+    }
+
+    public String getDisplay_number() {
+        return display_number;
+    }
+
+    public void setDisplay_number(String display_number) {
+        this.display_number = display_number;
     }
 
     public String getExpiry_month() {
@@ -47,14 +63,6 @@ public class CardRequest implements Serializable{
 
     public void setExpiry_year(String expiry_year) {
         this.expiry_year = expiry_year;
-    }
-
-    public String getCvc() {
-        return cvc;
-    }
-
-    public void setCvc(String cvc) {
-        this.cvc = cvc;
     }
 
     public String getName() {
@@ -112,14 +120,5 @@ public class CardRequest implements Serializable{
     public void setAddress_country(String address_country) {
         this.address_country = address_country;
     }
-
-    public String getPublishable_api_key() {
-        return publishable_api_key;
-    }
-
-    public void setPublishable_api_key(String publishable_api_key) {
-        this.publishable_api_key = publishable_api_key;
-    }
-    
     
 }

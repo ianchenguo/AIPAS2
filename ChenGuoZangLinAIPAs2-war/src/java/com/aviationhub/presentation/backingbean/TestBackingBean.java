@@ -6,7 +6,6 @@
 package com.aviationhub.presentation.backingbean;
 
 import com.aviationhub.domain.activitymanagement.ActivityHandlerLocal;
-import com.aviationhub.domain.activitymanagement.entity.Activity;
 import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
 import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
 import java.io.Serializable;

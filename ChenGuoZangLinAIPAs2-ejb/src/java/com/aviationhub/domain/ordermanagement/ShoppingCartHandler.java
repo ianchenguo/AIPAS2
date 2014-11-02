@@ -7,8 +7,12 @@ package com.aviationhub.domain.ordermanagement;
 
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
+import com.aviationhub.domain.paymentmanagement.OrderHandlerLocal;
+import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
+import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 
@@ -21,6 +25,9 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
 
     @Inject
     OrderDao orderDao;
+    
+    @EJB
+    OrderHandlerLocal orderHandler;
 
     //a shopping cart is a pending order
     private BookingOrder pendingOrder;
@@ -92,9 +99,14 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
     //    orderDao.create(pendingOrder);
     //}
     //getters and setters
+    //@Override
+    //public BookingOrder getPendingOrder() {
+    //    return pendingOrder;
+    //}
+
     @Override
-    public BookingOrder getPendingOrder() {
-        return pendingOrder;
+    public ResponseDto checkout(CreditCardDto creditCardDto) {
+        return orderHandler.placeOrder(pendingOrder, creditCardDto);
     }
 
 }

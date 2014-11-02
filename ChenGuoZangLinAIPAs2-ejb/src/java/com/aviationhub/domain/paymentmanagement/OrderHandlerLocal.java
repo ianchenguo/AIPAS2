@@ -7,7 +7,9 @@ package com.aviationhub.domain.paymentmanagement;
 
 import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
-import com.aviationhub.domain.paymentmanagement.transportEntity.ChargeResponseDto;
+import com.aviationhub.domain.ordermanagement.entity.BookingOrderStatusEnum;
+import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
+import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -18,8 +20,11 @@ import javax.ejb.Local;
 @Local
 public interface OrderHandlerLocal {
     public List<BookingOrder> listOrders(Account account);
+    
+    public List<BookingOrder> listOrdersByAccountAndType(Account account, BookingOrderStatusEnum type);
+    
     public BookingOrder getOrderById(Long id);
     
-    public ChargeResponseDto placeOrder(BookingOrder order);
+    public ResponseDto placeOrder(BookingOrder order, CreditCardDto creditCardDto);
     
 }
