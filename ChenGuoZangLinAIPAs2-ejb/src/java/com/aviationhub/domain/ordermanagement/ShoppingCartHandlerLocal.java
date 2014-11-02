@@ -25,6 +25,5 @@ public interface ShoppingCartHandlerLocal {
     public void removeFromShoppingCart(BookingOrderLine orderItem);
 
     public void alterItemQuantity(int itemIndex, int quantity);
-    
     //public void commitToOrder();
 }
