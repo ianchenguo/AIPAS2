@@ -39,9 +39,6 @@ public class PaymentJpaDao implements PaymentDao {
 
     @Override
     public Payment selectById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.find(Payment.class, id);
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

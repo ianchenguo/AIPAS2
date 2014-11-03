@@ -102,8 +102,13 @@ public class OrderHandler implements OrderHandlerLocal {
         //Logger log = Logger.getLogger(this.getClass().getName());
         //log.log(Level.SEVERE, "Text: {0}", response.getError());
         //log.log(Level.SEVERE, "parsedInt: {0}", Integer.parseInt(params.get("ind")));
-        //FacesContext context = FacesContext.getCurrentInstance();
-        //context.addMessage(null, new FacesMessage(response.getResponse().isSuccess()));
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        String test = "false";
+        if (response.getResponse().isSuccess()) {
+            test = "true";
+        }
+        context.addMessage(null, new FacesMessage(test));
         //context.addMessage(null, new FacesMessage(response.getError()));
 
         //persists the charge result
@@ -115,6 +120,7 @@ public class OrderHandler implements OrderHandlerLocal {
          } else {
          order.setOrderStatus(BookingOrderStatusEnum.FAILED);
          }
+         orderDao.update(order);
          //creates an inner response dto
          ResponseDto responseDto = createResponseDto(response);
 
