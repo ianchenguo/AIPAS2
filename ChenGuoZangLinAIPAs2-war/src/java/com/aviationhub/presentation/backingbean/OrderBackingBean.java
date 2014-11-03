@@ -72,7 +72,7 @@ public class OrderBackingBean implements Serializable{
         card.setExpiry_month("12");
         card.setExpiry_year("2016");
         card.setName(order.getFirstName() + " " + order.getLastName());
-        card.setNumber("4000000000000000");
+        card.setNumber("4100000000000001");
        
         orderHandler.placeOrder(order, card);
     }

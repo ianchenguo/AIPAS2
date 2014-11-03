@@ -66,7 +66,7 @@ public class OrderHandler implements OrderHandlerLocal {
             //conducts a restful request
             //formal url: https://test-api.pin.net.au/1/charges
             //local testing url: http://localhost:8081/1/charges
-            Response response = client.target("https://test-api.pin.net.au/1/charges")
+            Response response = client.target("http://localhost:8081/1/charges")
                     .request(MediaType.APPLICATION_JSON)
                     .post(Entity.json(chargeRequest));
             //converts the response message to a response object
@@ -99,11 +99,10 @@ public class OrderHandler implements OrderHandlerLocal {
         ChargeResponseMessage response = charge(order, creditCardDto);
 
         //debug logging info
-        //Logger log = Logger.getLogger(this.getClass().getName());
-        //log.log(Level.SEVERE, "Text: {0}", response.getError());
-        //log.log(Level.SEVERE, "parsedInt: {0}", Integer.parseInt(params.get("ind")));
+        Logger log = Logger.getLogger(this.getClass().getName());
+        log.log(Level.SEVERE, "isSuccess: {0}", response.getResponse().isSuccess());
+        log.log(Level.SEVERE, "ammount: {0}", response.getResponse().getAmount());
         FacesContext context = FacesContext.getCurrentInstance();
-        
         String test = "false";
         if (response.getResponse().isSuccess()) {
             test = "true";
@@ -165,7 +164,7 @@ public class OrderHandler implements OrderHandlerLocal {
         chargeRequest.setCurrency("AUD");
         chargeRequest.setDescription("Aviation Hub booking order");
         chargeRequest.setEmail(order.getAccount().getEmail());
-        chargeRequest.setIp_address("");
+        chargeRequest.setIp_address("192.168.0.1");
 
         /*
          //dummy request
