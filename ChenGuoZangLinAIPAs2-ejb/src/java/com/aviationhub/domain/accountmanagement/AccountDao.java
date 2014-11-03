@@ -5,13 +5,14 @@
  */
 package com.aviationhub.domain.accountmanagement;
 
-import com.aviationhub.domain.accountmanagement.entity.Account;
+import java.util.List;
 
 /**
  *
  * @author ian
+ * @param <A>
  */
-public interface AccountDao {
-    public Account read(String username, String password);
-    public void create(Account account);
+public interface AccountDao<A> {
+    public List<A> read(String username, String password);
+    public void create(A account);
 }

@@ -5,7 +5,6 @@
  */
 package com.aviationhub.domain.ordermanagement.entity;
 
-import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.accountmanagement.entity.Customer;
 import java.io.Serializable;
 import java.util.ArrayList;

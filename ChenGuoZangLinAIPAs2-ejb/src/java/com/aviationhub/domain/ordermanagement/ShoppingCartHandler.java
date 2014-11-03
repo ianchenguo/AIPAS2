@@ -5,7 +5,6 @@
  */
 package com.aviationhub.domain.ordermanagement;
 
-import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
 import com.aviationhub.domain.paymentmanagement.OrderHandlerLocal;
 import java.io.Serializable;
@@ -28,15 +27,12 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
     
     @EJB
     OrderHandlerLocal orderHandler;
-
-    //a shopping cart is a pending order
-    private BookingOrder pendingOrder;
     
     private List<BookingOrderLine> orderLines;
 
     @PostConstruct
     private void init() {
-        pendingOrder = new BookingOrder();
+        orderLines = new ArrayList<>();
     }
 
     @Override
@@ -54,8 +50,8 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
     }
 
     @Override
-    public void removeFromShoppingCart(BookingOrderLine orderItem) {
-        orderLines.remove(orderItem);
+    public void removeFromShoppingCart(int itemIndex) {
+        orderLines.remove(itemIndex);
     }
 
     private BookingOrderLine findItemInCart(BookingOrderLine orderItem) {
@@ -91,7 +87,7 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
      }*/
     @Override
     public void alterItemQuantity(int itemIndex, int quantity) {
-        BookingOrderLine orderline = pendingOrder.getOrderLines().get(itemIndex);
+        BookingOrderLine orderline = orderLines.get(itemIndex);
         orderline.setQuantity(quantity);
     }
 
@@ -114,6 +110,10 @@ public class ShoppingCartHandler implements ShoppingCartHandlerLocal, Serializab
     @Override
     public List<BookingOrderLine> listShoppingCartItems() {
         return orderLines;
+    }
+
+    @Override
+    public void updateShoppingCart(List<BookingOrderLine> orderItems) {
     }
 
 }

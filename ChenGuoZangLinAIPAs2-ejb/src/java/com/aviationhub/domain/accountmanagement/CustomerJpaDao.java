@@ -5,8 +5,8 @@
  */
 package com.aviationhub.domain.accountmanagement;
 
-import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.accountmanagement.entity.Customer;
+import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,25 +17,25 @@ import javax.persistence.Query;
  * @author ian
  */
 @Dependent
-public class CustomerJpaDao implements AccountDao {
+public class CustomerJpaDao implements AccountDao<Customer> {
 
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
     private EntityManager em;
-
+    
     @Override
-    public Account read(String username, String password) {
+    public List<Customer> read(String username, String password) {
         //constructs query
         Query query = em.createNamedQuery("findCustomer");
         query.setParameter("username", username);
         query.setParameter("password", password);
         //fetches results
-        Customer customer = (Customer) query.getSingleResult();
+        List<Customer> customers = query.getResultList();
         //returns resault
-        return customer;
+        return customers;
     }
 
     @Override
-    public void create(Account account) {
+    public void create(Customer account) {
         em.persist(account);
     }
 

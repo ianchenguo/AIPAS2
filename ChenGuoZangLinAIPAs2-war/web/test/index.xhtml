@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>test index</title>
+    </h:head>
+    <h:body>
+
+
+
+        <h1>register a customer</h1>
+        <h:form>
+            <h:outputLabel for="username" value="Username: "/>
+            <h:inputText id="username" value="#{accountBackingBean.customer.username}"/>
+            <h:outputLabel for="password" value="Password: "/>
+            <h:inputText id="password" value="#{accountBackingBean.customer.password}"/>
+            <h:outputLabel for="email" value="Email: "/>
+            <h:inputText id="email" value="#{accountBackingBean.customer.email}"/>
+            <h:commandButton action="#{accountBackingBean.createCustomer()}" value="register"/>
+        </h:form>
+
+        <h1>fetch a customer</h1>
+        <h:form>
+            <h:outputLabel for="username" value="Username: "/>
+            <h:inputText id="username" value="#{accountBackingBean.customer.username}"/>
+            <h:outputLabel for="password" value="Password: "/>
+            <h:inputText id="password" value="#{accountBackingBean.customer.password}"/>
+            <h:commandButton action="#{accountBackingBean.findCustomer()}" value="login"/>
+        </h:form>
+        <h:dataTable value="#{accountBackingBean.customer}" var="customer">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{customer.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="username" />
+                </f:facet>
+                <h:outputText value="#{customer.username}" />
+            </h:column>
+        </h:dataTable>
+
+        <h1>view shopping cart</h1>
+
+        <h:dataTable value="#{accountBackingBean.viewShoppingItems()}" var="cart">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="shopping cart id" />
+                </f:facet>
+                <h:outputText value="#{cart.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="start date" />
+                </f:facet>
+                <h:outputText value="#{cart.startDate}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="quantity" />
+                </f:facet>
+                <h:outputText value="#{cart.quantity}" />
+            </h:column>
+        </h:dataTable>
+
+        <h:form>
+            <h:commandButton action="#{accountBackingBean.addDummyItem()}" value="add dummy item"/>
+        </h:form>
+
+
+        <h1>restful service - charge</h1>
+        <h:form>
+            <h:commandButton action="#{accountBackingBean.charge()}" value="charge"/>
+        </h:form> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <p>summary list of joy flights</p>
+        <!-- list joy flights -->
+        <h:dataTable value="#{ac.listJoyFlights()}" var="activity">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{activity.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title" />
+                </f:facet>
+                <h:outputText value="#{activity.title}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="provider" />
+                </f:facet>
+                <h:outputText value="#{activity.provider}" />
+            </h:column>
+        </h:dataTable>
+
+        <p>summary list of pilot training</p>
+        <!-- list pilot training -->
+        <h:dataTable value="#{testBackingBean.listPilotTraining()}" var="activity">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{activity.id}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title" />
+                </f:facet>
+                <h:outputText value="#{activity.title}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="provider" />
+                </f:facet>
+                <h:outputText value="#{activity.provider}" />
+            </h:column>
+        </h:dataTable>
+
+        <p>training detail</p>
+        <!-- get pilot training detail-->
+        <h:dataTable value="#{testBackingBean.getPilotTrainingDetail(3)}" var="activity">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{activity.id}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title" />
+                </f:facet>
+                <h:outputText value="#{activity.title}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="provider" />
+                </f:facet>
+                <h:outputText value="#{activity.provider}" />
+            </h:column>
+        </h:dataTable>
+
+        <h:dataTable value="#{testBackingBean.getPilotTrainingDetail(3).timeSlots}" var="slots">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="id" />
+                </f:facet>
+                <h:outputText value="#{slots.id}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="startDate" />
+                </f:facet>
+                <h:outputText value="#{slots.startDate}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="startTime" />
+                </f:facet>
+                <h:outputText value="#{slots.startTime}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="endDate" />
+                </f:facet>
+                <h:outputText value="#{slots.endDate}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="endTime" />
+                </f:facet>
+                <h:outputText value="#{slots.endTime}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="quantity" />
+                </f:facet>
+                <h:outputText value="#{slots.quantity}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="status" />
+                </f:facet>
+                <h:outputText value="#{slots.status}" />
+            </h:column>
+
+        </h:dataTable>
+
+
+        <h:dataTable value="#{testBackingBean.getJoyFlightDetail(1)}" var="activity">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{activity.id}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title" />
+                </f:facet>
+                <h:outputText value="#{activity.title}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="provider" />
+                </f:facet>
+                <h:outputText value="#{activity.provider}" />
+            </h:column>
+        </h:dataTable>
+        <!-- get joy flight detail -->
+        <h:dataTable value="#{testBackingBean.getJoyFlightDetail(1).timeSlots}" var="slots">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="id" />
+                </f:facet>
+                <h:outputText value="#{slots.id}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="startDate" />
+                </f:facet>
+                <h:outputText value="#{slots.startDate}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="startTime" />
+                </f:facet>
+                <h:outputText value="#{slots.startTime}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="endDate" />
+                </f:facet>
+                <h:outputText value="#{slots.endDate}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="endTime" />
+                </f:facet>
+                <h:outputText value="#{slots.endTime}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="quantity" />
+                </f:facet>
+                <h:outputText value="#{slots.quantity}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="status" />
+                </f:facet>
+                <h:outputText value="#{slots.status}" />
+            </h:column>
+
+        </h:dataTable>
+
+
+
+
+    </h:body>
+</html>
+

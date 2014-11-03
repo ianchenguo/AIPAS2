@@ -5,10 +5,7 @@
  */
 package com.aviationhub.domain.ordermanagement;
 
-import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -18,20 +15,14 @@ import javax.ejb.Local;
  */
 @Local
 public interface ShoppingCartHandlerLocal {
-    
-    //public BookingOrder getPendingOrder();
-    //public BookingOrder getPendingOrder(Account account);
 
-    
     public void addToShoppingCart(BookingOrderLine orderItem);
 
-    public void removeFromShoppingCart(BookingOrderLine orderItem);
+    public void removeFromShoppingCart(int itemIndex);
 
     public void alterItemQuantity(int itemIndex, int quantity);
+
+    public List<BookingOrderLine> listShoppingCartItems();
     
-    public List<BookingOrderLine>listShoppingCartItems();
-    
-    //public void commitToOrder();
-    
-    //public ResponseDto checkout(CreditCardDto creditCardDto);
+    public void updateShoppingCart(List<BookingOrderLine> orderItems);
 }

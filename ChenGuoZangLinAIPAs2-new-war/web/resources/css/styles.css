@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 5, 2014, 9:47:54 PM
+    Author     : Zang
+*/
+body{
+    padding-top: 50px; 
+    padding-bottom: 20px;
+}
+
+#column{
+    background-image: url("img/HomeBanner.png");
+    background-repeat: no-repeat;
+    height:450px;
+    position: relative;
+}
+
+#info{
+    position: absolute;
+    left:82%;
+    top:82%;
+}
+
+.description{
+    font-size: 1.25em;
+    font-weight: bold;
+    padding:10px;
+}
+
+.content{
+    padding:10px;
+}
+
+.tablr,.tablerow,.tablecol,.header{
+    text-align: center;
+    padding:10px 40px 10px 40px;
+    overflow: scroll;
+}
+
+.inputtext{
+    width:100%;
+    border-radius: 5px;
+    border:1px solid lightgrey;
+}

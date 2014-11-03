@@ -5,7 +5,7 @@
  */
 package com.aviationhub.domain.paymentmanagement;
 
-import com.aviationhub.domain.paymentmanagement.pernsistantentity.Payment;
+import com.aviationhub.domain.paymentmanagement.entity.Payment;
 import java.util.List;
 
 /**

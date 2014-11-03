@@ -7,6 +7,7 @@ package com.aviationhub.domain.accountmanagement;
 
 import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.accountmanagement.entity.Customer;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -22,7 +23,14 @@ public class AccountHandler implements AccountHandlerLocal {
 
     @Override
     public Account findCustomer(String username, String password) {
-        return customerDao.read(username, password);
+        
+        List<Customer> customers = customerDao.read(username, password);
+        
+        if (customers.isEmpty()) {
+            return null;
+        } else {
+            return customers.get(0);
+        }
     }
 
     @Override

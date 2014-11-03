@@ -5,7 +5,7 @@
  */
 package com.aviationhub.presentation.backingbean.helper;
 
-import com.aviationhub.domain.paymentmanagement.outertransportentity.ChargeRequest;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.ChargeRequestMessage;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,7 +19,7 @@ import javax.ws.rs.Path;
 public class DebugService {
 
     @EJB
-    private ChargeRequest chargeRequest;
+    private ChargeRequestMessage chargeRequest;
 
     @GET
     //public Message peek() {
@@ -27,7 +27,7 @@ public class DebugService {
     //}
 
     @POST
-    public void charge(ChargeRequest message) {
+    public void charge(ChargeRequestMessage message) {
         
     }
 }

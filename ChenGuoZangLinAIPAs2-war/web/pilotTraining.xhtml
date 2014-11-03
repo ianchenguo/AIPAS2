@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:b="http://bootsfaces.net/ui"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Aviation Hub</title>
+        <meta name="author" content="The Author"></meta>
+        <h:outputStylesheet library="css" name="styles.css"  /> 
+    </h:head>
+    <h:body>
+        <b:navBar brand="Pilot Training" brandHref="#"  inverse="true" fixed="top" >
+                <b:navbarLinks>
+                    <b:navLink value="Home" outcome="home" ></b:navLink>
+                    <b:navLink value="Joy Flight" outcome="joyFlight" ></b:navLink>
+                </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                #{' '}
+                <b:buttonGroup size="sm">
+                    <b:button outcome="cart" value="Cart" look="info"/>
+                    <b:button outcome="account" value="Account" look="info"/>
+                    <b:commandButton action="#{headerBackingBean.logout}" value="Logout" look="info"/>
+                </b:buttonGroup>
+            </h:form> 
+        </b:navBar>
+           
+        <b:jumbotron >
+            <b:container>
+                <h:dataTable  var="pilotTraining"  value="#{pilotTrainingBackingBean.viewList()}" rowClasses="tablerow" columnClasses="tablecol" >
+                    <h:column>
+                        <h:outputLink value="#"><img src="#{pilotTraining.imageUrl}" width="307" height="131"/></h:outputLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Title
+                        </f:facet>
+                        <h:outputText value="#{pilotTraining.title}"/><br/>
+                    </h:column>
+                    <h:column>
+                        <b:button value="Detail" outcome="activity?id=#{pilotTraining.id}"/>
+                    </h:column>
+                </h:dataTable>
+            </b:container>
+        </b:jumbotron>
+     
+        <b:container>
+            <b:row>
+            <b:column col-md="4">
+                <h:outputText value="Quick Links" />
+                <b:listLinks>
+                    <b:navLink href="http://www.bootsfaces.net" value="Pilot Training"
+                               iconAlign="right"/>
+
+                    <b:navLink href="http://getbootstrap.com/components/#navbar" value="Joy Flight" iconAlign="right"></b:navLink>
+
+            </b:listLinks>
+            </b:column>
+            <b:column col-md="4">
+
+            </b:column>
+            <b:column col-md="4">
+
+            </b:column>
+            </b:row>
+            <hr/>
+            <footer>
+            <p>© Company 2014 UTS</p>
+            </footer>
+        </b:container>
+        
+    </h:body>
+</html>
+

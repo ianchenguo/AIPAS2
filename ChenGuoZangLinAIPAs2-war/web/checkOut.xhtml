@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:b="http://bootsfaces.net/ui"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Aviation Hub</title>
+        <meta name="author" content="The Author"></meta>
+        <h:outputStylesheet library="css" name="styles.css"  /> 
+    </h:head>
+    <h:body>
+        <b:navBar brand="Checkout" brandHref="#"  inverse="true" fixed="top" >
+                <b:navbarLinks>
+                    <b:navLink value="Home" outcome="home" ></b:navLink>
+                    <b:navLink value="Pilot Training" outcome="pilotTraining" ></b:navLink>
+                    <b:navLink value="Joy Flight" outcome="joyFlight" ></b:navLink>
+                    <b:navLink value="Activity" outcome="activity" ></b:navLink>
+                </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                #{' '}
+                <b:buttonGroup size="sm">
+                    <b:button outcome="cart" value="Cart" look="info"/>
+                    <b:button outcome="account" value="Account" look="info"/>
+                    <b:commandButton action="#{headerBackingBean.logout}" value="Logout" look="info"/>
+                </b:buttonGroup>
+            </h:form> 
+        </b:navBar>
+           
+        <b:jumbotron >
+            <h:form styleClass="navbar-form ">
+                <h3>Billing Address</h3>
+                <h:panelGrid  >
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="Last Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.lastName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputText value="First Name:"/>
+                        <b:inputText value="#{orderBackingBean.order.firstName}" required="true" fieldSize="sm"/>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <h3>Your Booking Summary</h3> 
+                    <h:dataTable  var="activity"  value="" columnClasses="tablecol" styleClass="tablr">
+                        <h:column headerClass="header" >
+                            <f:facet name="header">
+                                ID
+                            </f:facet>
+                            <h:outputText value="01"/>
+                        </h:column>
+                        <h:column headerClass="header">
+                            <f:facet name="header">
+                              Time Slot
+                            </f:facet>
+                            <h:outputText value="10:00 16-12-14"/>
+                        </h:column>
+                        <h:column headerClass="header">
+                            <f:facet name="header">
+                              Provider
+                            </f:facet>
+                            <h:outputText value="Tim Lake"/>
+                        </h:column>
+                        <h:column headerClass="header">
+                            <f:facet name="header">
+                              Price
+                            </f:facet>
+                            <h:outputText value="$689.00"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:column>
+                        <h5>Total Price:</h5>
+                        <h:outputText value="$689.00"/>
+                    </h:column>
+                </h:panelGrid>
+                <br/>
+                <b:buttonGroup size="sm" >
+                    <b:commandButton type="submit" action="#{orderBackingBean.checkOut()}" value="Place Order" look="primary"/>
+                    <b:button value="Cancel" outcome="activity" look="primary"/>
+                </b:buttonGroup>           
+            </h:form>         
+        </b:jumbotron>
+     
+        <b:container>
+            <b:row>
+            <b:column col-md="4">
+                <h:outputText value="Quick Links" />
+                <b:listLinks>
+                    <b:navLink href="http://www.bootsfaces.net" value="Pilot Training"
+                               iconAlign="right"/>
+
+                    <b:navLink href="http://getbootstrap.com/components/#navbar" value="Joy Flight" iconAlign="right"></b:navLink>
+
+            </b:listLinks>
+            </b:column>
+            <b:column col-md="4">
+
+            </b:column>
+            <b:column col-md="4">
+
+            </b:column>
+            </b:row>
+            <hr/>
+            <footer>
+            <p>© Company 2014 UTS</p>
+            </footer>
+        </b:container>
+        
+    </h:body>
+</html>
+

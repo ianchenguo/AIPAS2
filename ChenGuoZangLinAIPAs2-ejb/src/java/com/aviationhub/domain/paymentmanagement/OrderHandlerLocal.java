@@ -8,8 +8,8 @@ package com.aviationhub.domain.paymentmanagement;
 import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderStatusEnum;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
+import com.aviationhub.domain.paymentmanagement.dto.CreditCardDto;
+import com.aviationhub.domain.paymentmanagement.dto.ResponseDto;
 import java.util.List;
 import javax.ejb.Local;
 

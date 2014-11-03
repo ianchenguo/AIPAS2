@@ -6,7 +6,7 @@
 package com.aviationhub.domain.paymentmanagement;
 
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
-import com.aviationhub.domain.paymentmanagement.pernsistantentity.Payment;
+import com.aviationhub.domain.paymentmanagement.entity.Payment;
 import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;

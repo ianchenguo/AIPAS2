@@ -13,7 +13,6 @@ import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
 import com.aviationhub.domain.paymentmanagement.OrderHandlerLocal;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -80,14 +79,14 @@ public class AccountBackingBean implements Serializable {
      public void charge() {
      ph.charge();
      }*/
-    public List<BookingOrderLine> viewShoppingItems() {
-        getPendingOrder();
-        return pendingOrder.getOrderLines();
-    }
+    //public List<BookingOrderLine> viewShoppingItems() {
+    //    getPendingOrder();
+    //    return pendingOrder.getOrderLines();
+    //}
 
-    private void getPendingOrder() {
-        this.pendingOrder = sh.getPendingOrder();
-    }
+    //private void getPendingOrder() {
+    //    this.pendingOrder = sh.getPendingOrder();
+    //}
     
     public void addDummyItem(){
         //creates a dummy item

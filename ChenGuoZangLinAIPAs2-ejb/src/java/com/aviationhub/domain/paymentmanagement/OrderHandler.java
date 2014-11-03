@@ -6,25 +6,22 @@
 package com.aviationhub.domain.paymentmanagement;
 
 import com.aviationhub.domain.accountmanagement.entity.Account;
-import com.aviationhub.domain.activitymanagement.ActivityHandler;
 import com.aviationhub.domain.activitymanagement.TimeSlotDao;
 import com.aviationhub.domain.ordermanagement.OrderDao;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
-import com.aviationhub.domain.ordermanagement.entity.BookingOrderLine;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderStatusEnum;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.CreditCardDto;
-import com.aviationhub.domain.paymentmanagement.outertransportentity.CardRequest;
-import com.aviationhub.domain.paymentmanagement.outertransportentity.ChargeRequest;
-import com.aviationhub.domain.paymentmanagement.outertransportentity.ChargeResponse;
-import com.aviationhub.domain.paymentmanagement.innertransportentity.ResponseDto;
-import com.aviationhub.domain.paymentmanagement.outertransportentity.ErrorMessage;
-import com.aviationhub.domain.paymentmanagement.pernsistantentity.Payment;
-import com.aviationhub.domain.paymentmanagement.pernsistantentity.PaymentErrorMessage;
+import com.aviationhub.domain.paymentmanagement.dto.CreditCardDto;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.CardRequestMessage;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.ChargeRequestMessage;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.ChargeResponseMessage;
+import com.aviationhub.domain.paymentmanagement.dto.ResponseDto;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.ErrorMessage;
+import com.aviationhub.domain.paymentmanagement.entity.Payment;
+import com.aviationhub.domain.paymentmanagement.entity.PaymentErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -35,6 +32,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -49,81 +47,79 @@ public class OrderHandler implements OrderHandlerLocal {
     TimeSlotDao timeSlotDao;
     @Inject
     PaymentDao paymentDao;
-    
-    @EJB
-    ActivityHandler activityHandler;
 
-    private ChargeResponse charge(BookingOrder order, CreditCardDto creditCardDto) {
+    private ChargeResponseMessage charge(BookingOrder order, CreditCardDto creditCardDto) {
 
-        ChargeRequest chargeRequest = createChargeRequest(order, creditCardDto);
-        ChargeResponse chargeResponse = null;
+        //instantiates and populates a reqeust object
+        ChargeRequestMessage chargeRequest = createChargeRequest(order, creditCardDto);
+        //instantiates an empty response object
+        ChargeResponseMessage chargeResponse = null;
+        //declares a jax rs client
         Client client = null;
 
         try {
+            //declares user and password for basic http authentication
             String user = "Qqv4gc6eN65HlT_Bqajqcw";
             String password = "";
-
+            //instantiates the jax rs client with a basic http authenticator
             client = ClientBuilder.newClient().register(new Authenticator(user, password));
-            //https://test-api.pin.net.au/1/charges
-            //http://localhost:8081/1/charges
-            chargeResponse = client.target("//http://localhost:8081/1/charges")
+            //conducts a restful request
+            //formal url: https://test-api.pin.net.au/1/charges
+            //local testing url: http://localhost:8081/1/charges
+            Response response = client.target("https://test-api.pin.net.au/1/charges")
                     .request(MediaType.APPLICATION_JSON)
-                    .post(Entity.json(chargeRequest), ChargeResponse.class);
+                    .post(Entity.json(chargeRequest));
+            //converts the response message to a response object
+            chargeResponse = response.readEntity(ChargeResponseMessage.class);
 
         } catch (ProcessingException | WebApplicationException e) {
+
             Logger log = Logger.getLogger(this.getClass().getName());
-            log.log(Level.SEVERE, "Could not communicate with payment web service", e);
+            log.log(Level.SEVERE, "Could not communicate with payment web service {0}", e.getMessage());
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("An error occurred communicating with the payment server, please try again later"));
 
         } finally {
+            //releases the client
             if (client != null) {
                 client.close();
             }
         }
-        //return responseMessage;
         return chargeResponse;
-    }
-
-    private boolean deductTimeSlotQuantity(BookingOrder order) {
-        //for each orderline in the order, try to deduct its quantity from the activity time slots
-        for (BookingOrderLine l : order.getOrderLines()) {
-            boolean isDeducted = activityHandler.deductTimeSlotQuantity(l.getTimeSlotId(), l.getQuantity());
-            //if any faliure occurs, return false
-            if (!isDeducted) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @Override
     public ResponseDto placeOrder(BookingOrder order, CreditCardDto creditCardDto) {
-        //if the time slots are not used up, proceeds check out
-        if (deductTimeSlotQuantity(order)) {
-            //persists the order
-            order.setOrderStatus(BookingOrderStatusEnum.FINALISED);
-            orderDao.create(order);
-            //charge the order
-            ChargeResponse response = charge(order, creditCardDto);
-            //persists the charge result
-            storePaymentResult(order,response);
+        
+        //persists the order
+        order.setOrderStatus(BookingOrderStatusEnum.FINALISED);
+        orderDao.create(order);
 
-            //updates the order's status
-            if (response.getCoreResponse().getSuccess().equals("true")) {
-                order.setOrderStatus(BookingOrderStatusEnum.PAID);
-            } else {
-                order.setOrderStatus(BookingOrderStatusEnum.FAILED);
-            }
-            //creates an inner response dto
-            ResponseDto responseDto = createResponseDto(response);
+        //charge the order
+        ChargeResponseMessage response = charge(order, creditCardDto);
 
-            //returns response message
-            return responseDto;
-        } else {
-            //if any time slot is used up, return null
-            return null;
-        }
+        //debug logging info
+        //Logger log = Logger.getLogger(this.getClass().getName());
+        //log.log(Level.SEVERE, "Text: {0}", response.getError());
+        //log.log(Level.SEVERE, "parsedInt: {0}", Integer.parseInt(params.get("ind")));
+        //FacesContext context = FacesContext.getCurrentInstance();
+        //context.addMessage(null, new FacesMessage(response.getResponse().isSuccess()));
+        //context.addMessage(null, new FacesMessage(response.getError()));
+
+        //persists the charge result
+        storePaymentResult(order, response);
+
+         //updates the order's status
+         if (response.getResponse().isSuccess()) {
+         order.setOrderStatus(BookingOrderStatusEnum.PAID);
+         } else {
+         order.setOrderStatus(BookingOrderStatusEnum.FAILED);
+         }
+         //creates an inner response dto
+         ResponseDto responseDto = createResponseDto(response);
+
+         //returns response message
+         return responseDto;
     }
 
     @Override
@@ -141,9 +137,9 @@ public class OrderHandler implements OrderHandlerLocal {
         return orderDao.selectByAccountAndOrderStatus(account, type);
     }
 
-    private ChargeRequest createChargeRequest(BookingOrder order, CreditCardDto creditCardDto) {
-        ChargeRequest chargeRequest = new ChargeRequest();
-        CardRequest card = new CardRequest();
+    private ChargeRequestMessage createChargeRequest(BookingOrder order, CreditCardDto creditCardDto) {
+        ChargeRequestMessage chargeRequest = new ChargeRequestMessage();
+        CardRequestMessage card = new CardRequestMessage();
 
         card.setAddress_city(order.getAddressCity());
         card.setAddress_country(order.getAddressCountry());
@@ -165,31 +161,32 @@ public class OrderHandler implements OrderHandlerLocal {
         chargeRequest.setEmail(order.getAccount().getEmail());
         chargeRequest.setIp_address("");
 
-        //dummy request
-        card.setPublishable_api_key("");
-        card.setNumber("4200000000000000");
-        card.setExpiry_month("12");
-        card.setExpiry_year("2016");
-        card.setCvc("342");
-        card.setName("dummy dummy");
-        card.setAddress_line1("dummy");
-        card.setAddress_line2("");
-        card.setAddress_city("Sydney");
-        card.setAddress_postcode("1234");
-        card.setAddress_state("NSW");
-        card.setAddress_country("Australia");
-        chargeRequest.setEmail("dummy@dummy.com");
-        chargeRequest.setDescription("dummy goods");
-        chargeRequest.setAmount(110);
-        chargeRequest.setIp_address("");
-        chargeRequest.setCurrency("AUD");
-        chargeRequest.setCapture("true");
-        chargeRequest.setCard(card);
-
+        /*
+         //dummy request
+         card.setPublishable_api_key("");
+         card.setNumber("4200000000000000");
+         card.setExpiry_month("12");
+         card.setExpiry_year("2016");
+         card.setCvc("342");
+         card.setName("dummy dummy");
+         card.setAddress_line1("dummy");
+         card.setAddress_line2("");
+         card.setAddress_city("Sydney");
+         card.setAddress_postcode("1234");
+         card.setAddress_state("NSW");
+         card.setAddress_country("Australia");
+         chargeRequest.setEmail("dummy@dummy.com");
+         chargeRequest.setDescription("dummy goods");
+         chargeRequest.setAmount(110);
+         chargeRequest.setIp_address("");
+         chargeRequest.setCurrency("AUD");
+         chargeRequest.setCapture("true");
+         chargeRequest.setCard(card);
+         */
         return chargeRequest;
     }
 
-    private ResponseDto createResponseDto(ChargeResponse response) {
+    private ResponseDto createResponseDto(ChargeResponseMessage response) {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setError(response.getError());
         responseDto.setError_description(response.getError_description());
@@ -197,17 +194,16 @@ public class OrderHandler implements OrderHandlerLocal {
         return responseDto;
     }
 
-    private void storePaymentResult(BookingOrder order, ChargeResponse response) {
-        
+    private void storePaymentResult(BookingOrder order, ChargeResponseMessage response) {
+
         List<PaymentErrorMessage> messageList = new ArrayList<>();
         for (ErrorMessage em : response.getMessages()) {
             PaymentErrorMessage msg = new PaymentErrorMessage(em.getCode(), em.getMessage(), em.getParam());
             messageList.add(msg);
         }
-        Payment payment = new Payment
-        (order, response.getCoreResponse().getSuccess(), response.getCoreResponse().getStatus_message(),
+        Payment payment = new Payment(order, response.getResponse().isSuccess(), response.getResponse().getStatus_message(),
                 response.getError(), response.getError_description(), messageList);
-        
+
         paymentDao.create(payment);
     }
 
