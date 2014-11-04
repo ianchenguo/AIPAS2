@@ -124,7 +124,8 @@ public class OrderHandler implements OrderHandlerLocal {
         storePaymentResult(order, response);
 
         //updates the order's status
-        if (response.getResponse().getSuccess().equals("true")) {
+        String isSuccess = response.getResponse().getSuccess();
+        if (isSuccess != null && isSuccess.equals("true")) {
             order.setOrderStatus(BookingOrderStatusEnum.PAID);
         } else {
             order.setOrderStatus(BookingOrderStatusEnum.FAILED);
