@@ -8,14 +8,12 @@ package com.aviationhub.domain.paymentmanagement.restfulmessage;
 import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.CardRequestMessage;
 import java.io.Serializable;
 
-
-
 /**
  *
  * @author ian
  */
+public class ChargeRequestMessage implements Serializable {
 
-public class ChargeRequestMessage implements Serializable{
     private String email;
     private String description;
     private int amount;
@@ -27,8 +25,16 @@ public class ChargeRequestMessage implements Serializable{
     public ChargeRequestMessage() {
         card = new CardRequestMessage();
     }
-    
-    
+
+    public ChargeRequestMessage(String email, String description, int amount, String ip_address, String currency, CardRequestMessage card) {
+        this.email = email;
+        this.description = description;
+        this.amount = amount;
+        this.ip_address = ip_address;
+        this.currency = currency;
+        this.card = card;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -84,6 +90,5 @@ public class ChargeRequestMessage implements Serializable{
     public void setCapture(String capture) {
         this.capture = capture;
     }
-    
-    
+
 }

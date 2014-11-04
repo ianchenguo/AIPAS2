@@ -9,15 +9,21 @@ import com.aviationhub.domain.accountmanagement.entity.Account;
 import com.aviationhub.domain.activitymanagement.TimeSlotDao;
 import com.aviationhub.domain.ordermanagement.OrderDao;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
+import com.aviationhub.domain.ordermanagement.entity.BookingOrderAddress;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderStatusEnum;
 import com.aviationhub.domain.paymentmanagement.dto.CreditCardDto;
 import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.CardRequestMessage;
 import com.aviationhub.domain.paymentmanagement.restfulmessage.ChargeRequestMessage;
 import com.aviationhub.domain.paymentmanagement.restfulmessage.ChargeResponseMessage;
 import com.aviationhub.domain.paymentmanagement.dto.ResponseDto;
-import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.ErrorMessage;
 import com.aviationhub.domain.paymentmanagement.entity.Payment;
+import com.aviationhub.domain.paymentmanagement.entity.PaymentCard;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.ErrorMessage;
 import com.aviationhub.domain.paymentmanagement.entity.PaymentErrorMessage;
+import com.aviationhub.domain.paymentmanagement.entity.PaymentTransfer;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.CardResponseMessage;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.ChargeSuccessResponseMessage;
+import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.ChargeTransferMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -71,6 +77,7 @@ public class OrderHandler implements OrderHandlerLocal {
                     .post(Entity.json(chargeRequest));
             //converts the response message to a response object
             chargeResponse = response.readEntity(ChargeResponseMessage.class);
+            //chargeResponse = response.readEntity(TestResponseMessage.class);
 
         } catch (ProcessingException | WebApplicationException e) {
 
@@ -90,81 +97,57 @@ public class OrderHandler implements OrderHandlerLocal {
 
     @Override
     public ResponseDto placeOrder(BookingOrder order, CreditCardDto creditCardDto) {
-        
+
         //persists the order
         order.setOrderStatus(BookingOrderStatusEnum.FINALISED);
         orderDao.create(order);
 
         //charge the order
         ChargeResponseMessage response = charge(order, creditCardDto);
+        //TestResponseMessage response = charge(order, creditCardDto);
 
         //debug logging info
         Logger log = Logger.getLogger(this.getClass().getName());
-        log.log(Level.SEVERE, "isSuccess: {0}", response.getResponse().isSuccess());
-        log.log(Level.SEVERE, "ammount: {0}", response.getResponse().getAmount());
-        FacesContext context = FacesContext.getCurrentInstance();
-        String test = "false";
-        if (response.getResponse().isSuccess()) {
-            test = "true";
-        }
-        context.addMessage(null, new FacesMessage(test));
+        log.log(Level.SEVERE, "error: {0}", response.getError());
+        //log.log(Level.SEVERE, "isSuccess: {0}", response.getResponse().getSuccess());
+        //log.log(Level.SEVERE, "ammount: {0}", response.getResponse().getAmount());
+        //log.log(Level.SEVERE, "primary: {0}", responseCard.getPrimary());
+        //FacesContext context = FacesContext.getCurrentInstance();
+        //String test = "false";
+        //if (response.getResponse().getSuccess().equals("true")) {
+        //    test = "true";
+        //}
+        //context.addMessage(null, new FacesMessage(test));
         //context.addMessage(null, new FacesMessage(response.getError()));
 
         //persists the charge result
         storePaymentResult(order, response);
 
-         //updates the order's status
-         if (response.getResponse().isSuccess()) {
-         order.setOrderStatus(BookingOrderStatusEnum.PAID);
-         } else {
-         order.setOrderStatus(BookingOrderStatusEnum.FAILED);
-         }
-         orderDao.update(order);
-         //creates an inner response dto
-         ResponseDto responseDto = createResponseDto(response);
+        //updates the order's status
+        if (response.getResponse().getSuccess().equals("true")) {
+            order.setOrderStatus(BookingOrderStatusEnum.PAID);
+        } else {
+            order.setOrderStatus(BookingOrderStatusEnum.FAILED);
+        }
+        orderDao.update(order);
+        //creates an inner response dto
+        ResponseDto responseDto = createResponseDto(response);
 
-         //returns response message
-         return responseDto;
+        //returns response message
+        return responseDto; 
     }
 
-    @Override
-    public List<BookingOrder> listOrders(Account account) {
-        return orderDao.selectAll();
-    }
+    private ChargeRequestMessage createChargeRequest(BookingOrder order, CreditCardDto cardDto) {
 
-    @Override
-    public BookingOrder getOrderById(Long id) {
-        return orderDao.selectById(id);
-    }
+        BookingOrderAddress oa = order.getAddress();
+        CardRequestMessage card
+                = new CardRequestMessage("", cardDto.getNumber(), cardDto.getExpiry_month(),
+                        cardDto.getExpiry_year(), cardDto.getCvc(), cardDto.getName(), oa.getAddressLine1(),
+                        oa.getAddressLine2(), oa.getAddressCity(),
+                        oa.getAddressPostcode(), oa.getAddressState(), oa.getAddressCountry());
 
-    @Override
-    public List<BookingOrder> listOrdersByAccountAndType(Account account, BookingOrderStatusEnum type) {
-        return orderDao.selectByAccountAndOrderStatus(account, type);
-    }
-
-    private ChargeRequestMessage createChargeRequest(BookingOrder order, CreditCardDto creditCardDto) {
-        ChargeRequestMessage chargeRequest = new ChargeRequestMessage();
-        CardRequestMessage card = new CardRequestMessage();
-
-        card.setAddress_city(order.getAddressCity());
-        card.setAddress_country(order.getAddressCountry());
-        card.setAddress_line1(order.getAddressLine1());
-        card.setAddress_line2(order.getAddressLine2());
-        card.setAddress_postcode(order.getAddressPostcode());
-        card.setAddress_state(order.getAddressState());
-        card.setCvc(creditCardDto.getCvc());
-        card.setExpiry_month(creditCardDto.getExpiry_month());
-        card.setExpiry_year(creditCardDto.getExpiry_year());
-        card.setName(creditCardDto.getName());
-        card.setNumber(creditCardDto.getNumber());
-        card.setPublishable_api_key("");
-        chargeRequest.setAmount(order.getTotalPrice());
-        chargeRequest.setCapture("true");
-        chargeRequest.setCard(card);
-        chargeRequest.setCurrency("AUD");
-        chargeRequest.setDescription("Aviation Hub booking order");
-        chargeRequest.setEmail(order.getAccount().getEmail());
-        chargeRequest.setIp_address("192.168.0.1");
+        ChargeRequestMessage chargeRequest
+                = new ChargeRequestMessage(order.getEmail(), "Aviation Hub booking order", order.getTotalPrice(), order.getIpAddress(), "AUD", card);
 
         /*
          //dummy request
@@ -201,15 +184,51 @@ public class OrderHandler implements OrderHandlerLocal {
 
     private void storePaymentResult(BookingOrder order, ChargeResponseMessage response) {
 
+        CardResponseMessage rc = response.getResponse().getCard();
+        PaymentCard card
+                = new PaymentCard(rc.getToken(), rc.getScheme(),
+                        rc.getDisplay_number(), rc.getExpiry_month(),
+                        rc.getExpiry_year(), rc.getName(),
+                        rc.getAddress_line1(), rc.getAddress_line2(),
+                        rc.getAddress_city(), rc.getAddress_postcode(),
+                        rc.getAddress_state(), rc.getAddress_country(), rc.getPrimary());
+
         List<PaymentErrorMessage> messageList = new ArrayList<>();
         for (ErrorMessage em : response.getMessages()) {
             PaymentErrorMessage msg = new PaymentErrorMessage(em.getCode(), em.getMessage(), em.getParam());
             messageList.add(msg);
         }
-        Payment payment = new Payment(order, response.getResponse().isSuccess(), response.getResponse().getStatus_message(),
-                response.getError(), response.getError_description(), messageList);
+        
+        ChargeSuccessResponseMessage csr = response.getResponse();
+        List<PaymentTransfer> paymentTransfers = new ArrayList<>();
+        for (ChargeTransferMessage ct : csr.getTransfer()) {
+            PaymentTransfer pt = new PaymentTransfer(ct.getState(), ct.getPaid_at(), ct.getToken());
+            paymentTransfers.add(pt);
+        }
+
+        Payment payment = 
+                new Payment(order.getAccount(), order, csr.getToken(), csr.getSuccess(), csr.getAmount(), 
+                        csr.getCurrency(), csr.getDescription(), csr.getEmail(), csr.getIp_address(), csr.getCreated_at(), 
+                        csr.getStatus_message(), csr.getError_message(), card, paymentTransfers, csr.getAmount_refunded(), 
+                        csr.getTotal_fees(), csr.getMerchant_entitlement(), csr.getRefund_pending(), 
+                        csr.getAuthorisation_expired(), csr.getCaptured(), csr.getSettlement_currency(), 
+                        response.getCharge_token(), response.getError(), response.getError_description(), messageList);
 
         paymentDao.create(payment);
     }
 
+    @Override
+    public BookingOrder getOrderById(Long id) {
+        return orderDao.selectById(id);
+    }
+
+    @Override
+    public List<BookingOrder> listOrdersByAccountAndType(Account account, BookingOrderStatusEnum type) {
+        return orderDao.selectByAccountAndOrderStatus(account, type);
+    }
+
+    @Override
+    public List<BookingOrder> listOrders(Account account) {
+        return orderDao.selectAll();
+    }
 }

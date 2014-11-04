@@ -59,6 +59,17 @@ public class BookingOrderLine implements Serializable {
         this.subTotal = subTotal;
     }
     
+    public BookingOrderLine(BookingOrderLine src) {
+        this.activity = src.getActivity();
+        this.endDate = src.getEndDate();
+        this.endTime = src.getEndTime();
+        this.quantity = src.getQuantity();
+        this.startDate = src.getStartDate();
+        this.startTime = src.getStartTime();
+        this.subTotal = src.getSubTotal();
+        this.timeSlotId = src.getTimeSlotId();
+    }
+    
     
 
     public Long getTimeSlotId() {

@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author ian
  */
-public class CardRequestMessage implements Serializable{
+public class CardRequestMessage implements Serializable {
+
     private String publishable_api_key;
     private String number;
     private String expiry_month;
@@ -24,6 +25,24 @@ public class CardRequestMessage implements Serializable{
     private String address_postcode;
     private String address_state;
     private String address_country;
+
+    public CardRequestMessage() {
+    }
+
+    public CardRequestMessage(String publishable_api_key, String number, String expiry_month, String expiry_year, String cvc, String name, String address_line1, String address_line2, String address_city, String address_postcode, String address_state, String address_country) {
+        this.publishable_api_key = publishable_api_key;
+        this.number = number;
+        this.expiry_month = expiry_month;
+        this.expiry_year = expiry_year;
+        this.cvc = cvc;
+        this.name = name;
+        this.address_line1 = address_line1;
+        this.address_line2 = address_line2;
+        this.address_city = address_city;
+        this.address_postcode = address_postcode;
+        this.address_state = address_state;
+        this.address_country = address_country;
+    }
 
     public String getNumber() {
         return number;
@@ -120,6 +139,5 @@ public class CardRequestMessage implements Serializable{
     public void setPublishable_api_key(String publishable_api_key) {
         this.publishable_api_key = publishable_api_key;
     }
-    
-    
+
 }

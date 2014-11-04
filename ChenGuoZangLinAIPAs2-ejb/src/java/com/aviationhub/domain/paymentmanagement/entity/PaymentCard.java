@@ -1,17 +1,29 @@
-package com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.aviationhub.domain.paymentmanagement.entity;
+
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
+ * This class does not store sensitive credit card details This class stores
+ * respond credit card related information
  *
  * @author ian
  */
-public class CardResponseMessage implements Serializable {
+@Entity
+public class PaymentCard implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String token;
     private String scheme;
@@ -25,11 +37,27 @@ public class CardResponseMessage implements Serializable {
     private String address_postcode;
     private String address_state;
     private String address_country;
-    private String primary;
+    private String isPrimary;
 
-    public CardResponseMessage() {
+    public PaymentCard() {
     }
 
+    public PaymentCard(String token, String scheme, String display_number, long expiry_month, long expiry_year, String name, String address_line1, String address_line2, String address_city, String address_postcode, String address_state, String address_country, String primaryCard) {
+        this.token = token;
+        this.scheme = scheme;
+        this.display_number = display_number;
+        this.expiry_month = expiry_month;
+        this.expiry_year = expiry_year;
+        this.name = name;
+        this.address_line1 = address_line1;
+        this.address_line2 = address_line2;
+        this.address_city = address_city;
+        this.address_postcode = address_postcode;
+        this.address_state = address_state;
+        this.address_country = address_country;
+        this.isPrimary = primaryCard;
+    }
+    
     public String getToken() {
         return token;
     }
@@ -126,12 +154,45 @@ public class CardResponseMessage implements Serializable {
         this.address_country = address_country;
     }
 
-    public String getPrimary() {
-        return primary;
+    public String getPrimaryCard() {
+        return isPrimary;
     }
 
-    public void setPrimary(String primary) {
-        this.primary = primary;
+    public void setPrimaryCard(String primaryCard) {
+        this.isPrimary = primaryCard;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof PaymentCard)) {
+            return false;
+        }
+        PaymentCard other = (PaymentCard) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.aviationhub.domain.paymentmanagement.entity.PaymentCard[ id=" + id + " ]";
     }
 
 }

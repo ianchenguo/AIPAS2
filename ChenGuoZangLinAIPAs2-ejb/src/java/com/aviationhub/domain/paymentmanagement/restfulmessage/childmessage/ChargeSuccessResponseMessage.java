@@ -1,7 +1,5 @@
 package com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage;
 
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,8 +16,8 @@ import java.util.List;
 public class ChargeSuccessResponseMessage implements Serializable {
 
     private String token;
-    private boolean success;
-    private int amount;
+    private String success;
+    private long amount;
     private String currency;
     private String description;
     private String email;
@@ -28,13 +26,13 @@ public class ChargeSuccessResponseMessage implements Serializable {
     private String status_message;
     private String error_message;
     private CardResponseMessage card;
-    private boolean captured;
-    private boolean authorisation_expired;
     private List<ChargeTransferMessage> transfer;
-    private int amount_refunded;
-    private int total_fees;
-    private int merchant_entitlement;
-    private boolean refund_pending;
+    private long amount_refunded;
+    private long total_fees;
+    private long merchant_entitlement;
+    private String refund_pending;
+    private String authorisation_expired;
+    private String captured;
     private String settlement_currency;
 
     public ChargeSuccessResponseMessage() {
@@ -50,19 +48,19 @@ public class ChargeSuccessResponseMessage implements Serializable {
         this.token = token;
     }
 
-    public boolean isSuccess() {
+    public String getSuccess() {
         return success;
     }
 
-    public void setSuccess(boolean success) {
+    public void setSuccess(String success) {
         this.success = success;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 
@@ -130,52 +128,60 @@ public class ChargeSuccessResponseMessage implements Serializable {
         this.card = card;
     }
 
-    public boolean getCaptured() {
-        return captured;
+    public List<ChargeTransferMessage> getTransfer() {
+        return transfer;
     }
 
-    public void setCaptured(boolean captured) {
-        this.captured = captured;
+    public void setTransfer(List<ChargeTransferMessage> transfer) {
+        this.transfer = transfer;
     }
 
-    public boolean isAuthorisation_expired() {
-        return authorisation_expired;
-    }
-
-    public void setAuthorisation_expired(boolean authorisation_expired) {
-        this.authorisation_expired = authorisation_expired;
-    }
-
-    public int getAmount_refunded() {
+    public long getAmount_refunded() {
         return amount_refunded;
     }
 
-    public void setAmount_refunded(int amount_refunded) {
+    public void setAmount_refunded(long amount_refunded) {
         this.amount_refunded = amount_refunded;
     }
 
-    public int getTotal_fees() {
+    public long getTotal_fees() {
         return total_fees;
     }
 
-    public void setTotal_fees(int total_fees) {
+    public void setTotal_fees(long total_fees) {
         this.total_fees = total_fees;
     }
 
-    public int getMerchant_entitlement() {
+    public long getMerchant_entitlement() {
         return merchant_entitlement;
     }
 
-    public void setMerchant_entitlement(int merchant_entitlement) {
+    public void setMerchant_entitlement(long merchant_entitlement) {
         this.merchant_entitlement = merchant_entitlement;
     }
 
-    public boolean isRefund_pending() {
+    public String getRefund_pending() {
         return refund_pending;
     }
 
-    public void setRefund_pending(boolean refund_pending) {
+    public void setRefund_pending(String refund_pending) {
         this.refund_pending = refund_pending;
+    }
+
+    public String getAuthorisation_expired() {
+        return authorisation_expired;
+    }
+
+    public void setAuthorisation_expired(String authorisation_expired) {
+        this.authorisation_expired = authorisation_expired;
+    }
+
+    public String getCaptured() {
+        return captured;
+    }
+
+    public void setCaptured(String captured) {
+        this.captured = captured;
     }
 
     public String getSettlement_currency() {
@@ -184,14 +190,6 @@ public class ChargeSuccessResponseMessage implements Serializable {
 
     public void setSettlement_currency(String settlement_currency) {
         this.settlement_currency = settlement_currency;
-    }
-
-    public List<ChargeTransferMessage> getTransfer() {
-        return transfer;
-    }
-
-    public void setTransfer(List<ChargeTransferMessage> transfer) {
-        this.transfer = transfer;
     }
 
 }

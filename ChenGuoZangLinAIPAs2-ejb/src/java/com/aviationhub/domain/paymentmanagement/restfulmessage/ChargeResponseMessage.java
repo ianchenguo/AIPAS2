@@ -5,8 +5,6 @@ package com.aviationhub.domain.paymentmanagement.restfulmessage;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.ChargeSuccessResponseMessage;
 import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.ErrorMessage;
 import java.io.Serializable;
@@ -30,6 +28,14 @@ public class ChargeResponseMessage implements Serializable {
         messages = new ArrayList<>();
     }
 
+    public ChargeResponseMessage(ChargeSuccessResponseMessage response, String error, String error_description, List<ErrorMessage> messages, String charge_token) {
+        this.response = response;
+        this.error = error;
+        this.error_description = error_description;
+        this.messages = messages;
+        this.charge_token = charge_token;
+    }
+
     public ChargeSuccessResponseMessage getResponse() {
         return response;
     }
@@ -37,7 +43,6 @@ public class ChargeResponseMessage implements Serializable {
     public void setResponse(ChargeSuccessResponseMessage response) {
         this.response = response;
     }
-
 
     public String getError() {
         return error;

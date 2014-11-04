@@ -5,6 +5,7 @@
  */
 package com.aviationhub.domain.accountmanagement.entity;
 
+import com.aviationhub.domain.ordermanagement.entity.BookingOrderAddress;
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class Customer extends Account implements Serializable {
             + "@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Email format is invalid.")
     @Size(max = 255)
     private String email;
-
+    
     public String getEmail() {
         return email;
     }

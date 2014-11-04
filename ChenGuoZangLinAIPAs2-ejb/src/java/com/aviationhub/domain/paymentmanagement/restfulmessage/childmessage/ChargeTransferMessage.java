@@ -10,9 +10,19 @@ package com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage;
  * @author ian
  */
 public class ChargeTransferMessage {
+
     private String state;
     private String paid_at;
     private String token;
+
+    public ChargeTransferMessage() {
+    }
+
+    public ChargeTransferMessage(String state, String paid_at, String token) {
+        this.state = state;
+        this.paid_at = paid_at;
+        this.token = token;
+    }
 
     public String getState() {
         return state;
@@ -37,6 +47,5 @@ public class ChargeTransferMessage {
     public void setToken(String token) {
         this.token = token;
     }
-    
-    
+
 }
