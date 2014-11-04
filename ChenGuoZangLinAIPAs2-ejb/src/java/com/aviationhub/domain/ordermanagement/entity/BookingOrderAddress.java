@@ -34,9 +34,22 @@ public class BookingOrderAddress implements Serializable {
     private String addressPostcode;
     private String addressCountry;
 
+    /**
+     *
+     */
     public BookingOrderAddress() {
     }
 
+    /**
+     *
+     * @param accounts
+     * @param addressLine1
+     * @param addressLine2
+     * @param addressCity
+     * @param addressState
+     * @param addressPostcode
+     * @param addressCountry
+     */
     public BookingOrderAddress(List<Customer> accounts, String addressLine1, String addressLine2, String addressCity, String addressState, String addressPostcode, String addressCountry) {
         this.accounts = accounts;
         this.addressLine1 = addressLine1;
@@ -47,67 +60,130 @@ public class BookingOrderAddress implements Serializable {
         this.addressCountry = addressCountry;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Customer> getAccounts() {
         return accounts;
     }
 
+    /**
+     *
+     * @param accounts
+     */
     public void setAccounts(List<Customer> accounts) {
         this.accounts = accounts;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String getAddressLine1() {
         return addressLine1;
     }
 
+    /**
+     *
+     * @param addressLine1
+     */
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddressLine2() {
         return addressLine2;
     }
 
+    /**
+     *
+     * @param addressLine2
+     */
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddressCity() {
         return addressCity;
     }
 
+    /**
+     *
+     * @param addressCity
+     */
     public void setAddressCity(String addressCity) {
         this.addressCity = addressCity;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddressState() {
         return addressState;
     }
 
+    /**
+     *
+     * @param addressState
+     */
     public void setAddressState(String addressState) {
         this.addressState = addressState;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddressPostcode() {
         return addressPostcode;
     }
 
+    /**
+     *
+     * @param addressPostcode
+     */
     public void setAddressPostcode(String addressPostcode) {
         this.addressPostcode = addressPostcode;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddressCountry() {
         return addressCountry;
     }
 
+    /**
+     *
+     * @param addressCountry
+     */
     public void setAddressCountry(String addressCountry) {
         this.addressCountry = addressCountry;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

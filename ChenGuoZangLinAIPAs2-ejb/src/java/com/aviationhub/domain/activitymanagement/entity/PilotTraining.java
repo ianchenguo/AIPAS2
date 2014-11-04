@@ -12,7 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
+ * A concrete pilot training activity entity
  * @author ian
  */
 @Entity
@@ -31,18 +31,35 @@ public class PilotTraining extends Activity implements Serializable {
     private String certificate;
 
     //getters and setters
-    public String getDuration() {
+
+    /**
+     *
+     * @return
+     */
+        public String getDuration() {
         return duration;
     }
 
+    /**
+     *
+     * @param duration
+     */
     public void setDuration(String duration) {
         this.duration = duration;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCertificate() {
         return certificate;
     }
 
+    /**
+     *
+     * @param certificate
+     */
     public void setCertificate(String certificate) {
         this.certificate = certificate;
     }

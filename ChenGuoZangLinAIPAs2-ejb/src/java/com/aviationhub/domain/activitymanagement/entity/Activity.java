@@ -19,7 +19,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 /**
- *
+ * An abstract activity entity
  * @author ian
  */
 @Entity
@@ -30,7 +30,6 @@ public abstract class Activity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String title;
     @Enumerated(EnumType.STRING)
     private ActivityTypeEnum activityType;
@@ -47,82 +46,163 @@ public abstract class Activity implements Serializable {
     private List<TimeSlot> timeSlots;
 
     //getters and setters
-    public Long getId() {
+
+    /**
+     *
+     * @return
+     */
+        public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     *
+     * @return
+     */
     public ActivityTypeEnum getActivityType() {
         return activityType;
     }
 
+    /**
+     *
+     * @param activityType
+     */
     public void setActivityType(ActivityTypeEnum activityType) {
         this.activityType = activityType;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPrice() {
         return price;
     }
 
+    /**
+     *
+     * @param price
+     */
     public void setPrice(int price) {
         this.price = price;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProvider() {
         return provider;
     }
 
+    /**
+     *
+     * @param provider
+     */
     public void setProvider(String provider) {
         this.provider = provider;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAircraft() {
         return aircraft;
     }
 
+    /**
+     *
+     * @param aircraft
+     */
     public void setAircraft(String aircraft) {
         this.aircraft = aircraft;
     }
 
+    /**
+     *
+     * @return
+     */
     public ActivityStateEnum getActivityState() {
         return activityState;
     }
 
+    /**
+     *
+     * @param activityState
+     */
     public void setActivityState(ActivityStateEnum activityState) {
         this.activityState = activityState;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getActivityDesc() {
         return activityDesc;
     }
 
+    /**
+     *
+     * @param activityDesc
+     */
     public void setActivityDesc(String activityDesc) {
         this.activityDesc = activityDesc;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<TimeSlot> getTimeSlots() {
         return timeSlots;
     }
 
+    /**
+     *
+     * @param timeSlots
+     */
     public void setTimeSlots(List<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImageUrl() {
         return imageUrl;
     }
 
+    /**
+     *
+     * @param imageUrl
+     */
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }

@@ -15,7 +15,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- *
+ * A concrete customer entity
  * @author ian
  */
 @Entity
@@ -31,10 +31,18 @@ public class Customer extends Account implements Serializable {
     @Size(max = 255)
     private String email;
     
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }

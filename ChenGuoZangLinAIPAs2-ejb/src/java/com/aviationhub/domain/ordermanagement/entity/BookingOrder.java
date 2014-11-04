@@ -47,14 +47,14 @@ public class BookingOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     //price in cents
-    private int totalPrice;
+    private long totalPrice;
     @OneToMany(cascade = CascadeType.ALL)
     private List<BookingOrderLine> orderLines;
     @ManyToOne
     private Customer account;
     private String firstName;
     private String lastName;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private BookingOrderAddress address;
     private String landLineNo;
     private String cellPhoneNo;
@@ -65,11 +65,29 @@ public class BookingOrder implements Serializable {
     private Date placeTime;
     private String ipAddress;
 
+    /**
+     *
+     */
     public BookingOrder() {
         this.orderLines = new ArrayList<>();
     }
 
-    public BookingOrder(int totalPrice, List<BookingOrderLine> orderLines, Customer account, String firstName, String lastName, BookingOrderAddress address, String landLineNo, String cellPhoneNo, String email, BookingOrderStatusEnum orderStatus, Date placeTime, String ipAddress) {
+    /**
+     *
+     * @param totalPrice
+     * @param orderLines
+     * @param account
+     * @param firstName
+     * @param lastName
+     * @param address
+     * @param landLineNo
+     * @param cellPhoneNo
+     * @param email
+     * @param orderStatus
+     * @param placeTime
+     * @param ipAddress
+     */
+    public BookingOrder(long totalPrice, List<BookingOrderLine> orderLines, Customer account, String firstName, String lastName, BookingOrderAddress address, String landLineNo, String cellPhoneNo, String email, BookingOrderStatusEnum orderStatus, Date placeTime, String ipAddress) {
         this.totalPrice = totalPrice;
         this.orderLines = orderLines;
         this.account = account;
@@ -84,108 +102,210 @@ public class BookingOrder implements Serializable {
         this.ipAddress = ipAddress;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIpAddress() {
         return ipAddress;
     }
 
+    /**
+     *
+     * @param ipAddress
+     */
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
 
-
-
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public int getTotalPrice() {
+    /**
+     *
+     * @return
+     */
+    public long getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    /**
+     *
+     * @param totalPrice
+     */
+    public void setTotalPrice(long totalPrice) {
         this.totalPrice = totalPrice;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<BookingOrderLine> getOrderLines() {
         return orderLines;
     }
 
+    /**
+     *
+     * @param orderLines
+     */
     public void setOrderLines(List<BookingOrderLine> orderLines) {
         this.orderLines = orderLines;
     }
 
+    /**
+     *
+     * @return
+     */
     public Customer getAccount() {
         return account;
     }
 
+    /**
+     *
+     * @param account
+     */
     public void setAccount(Customer account) {
         this.account = account;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public BookingOrderAddress getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @param address
+     */
     public void setAddress(BookingOrderAddress address) {
         this.address = address;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLandLineNo() {
         return landLineNo;
     }
 
+    /**
+     *
+     * @param landLineNo
+     */
     public void setLandLineNo(String landLineNo) {
         this.landLineNo = landLineNo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCellPhoneNo() {
         return cellPhoneNo;
     }
 
+    /**
+     *
+     * @param cellPhoneNo
+     */
     public void setCellPhoneNo(String cellPhoneNo) {
         this.cellPhoneNo = cellPhoneNo;
     }
 
+    /**
+     *
+     * @return
+     */
     public BookingOrderStatusEnum getOrderStatus() {
         return orderStatus;
     }
 
+    /**
+     *
+     * @param orderStatus
+     */
     public void setOrderStatus(BookingOrderStatusEnum orderStatus) {
         this.orderStatus = orderStatus;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getPlaceTime() {
         return placeTime;
     }
 
+    /**
+     *
+     * @param placeTime
+     */
     public void setPlaceTime(Date placeTime) {
         this.placeTime = placeTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

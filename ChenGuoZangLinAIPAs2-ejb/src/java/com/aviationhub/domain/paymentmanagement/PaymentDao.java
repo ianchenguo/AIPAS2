@@ -19,4 +19,6 @@ public interface PaymentDao {
     public List<Payment> selectAll();
 
     public Payment selectById(Long id);
+    
+    public List<Payment> selectByState(String isSuccess);
 }

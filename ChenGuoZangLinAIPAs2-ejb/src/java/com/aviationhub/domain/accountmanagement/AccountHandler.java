@@ -12,7 +12,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
+ * A facade EJB for account related logics
  * @author ian
  */
 @Stateless
@@ -21,6 +21,12 @@ public class AccountHandler implements AccountHandlerLocal {
     @Inject
     CustomerJpaDao customerDao;
 
+    /**
+     * Finds a customer by provided username and password
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public Account findCustomer(String username, String password) {
         
@@ -33,6 +39,10 @@ public class AccountHandler implements AccountHandlerLocal {
         }
     }
 
+    /**
+     * Creates a new customer
+     * @param customer
+     */
     @Override
     public void createCustomer(Customer customer) {
         customerDao.create(customer);

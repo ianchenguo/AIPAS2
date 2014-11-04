@@ -6,8 +6,7 @@
 package com.aviationhub.domain.paymentmanagement;
 
 import com.aviationhub.domain.accountmanagement.entity.Account;
-import com.aviationhub.domain.activitymanagement.TimeSlotDao;
-import com.aviationhub.domain.ordermanagement.OrderDao;
+import com.aviationhub.domain.ordermanagement.BookingOrderDao;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrder;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderAddress;
 import com.aviationhub.domain.ordermanagement.entity.BookingOrderStatusEnum;
@@ -48,9 +47,7 @@ import javax.ws.rs.core.Response;
 public class OrderHandler implements OrderHandlerLocal {
 
     @Inject
-    OrderDao orderDao;
-    @Inject
-    TimeSlotDao timeSlotDao;
+    BookingOrderDao orderDao;
     @Inject
     PaymentDao paymentDao;
 

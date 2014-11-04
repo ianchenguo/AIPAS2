@@ -16,7 +16,7 @@ public class ChargeRequestMessage implements Serializable {
 
     private String email;
     private String description;
-    private int amount;
+    private long amount;
     private String ip_address;
     private String currency;
     private String capture = "true";
@@ -26,7 +26,7 @@ public class ChargeRequestMessage implements Serializable {
         card = new CardRequestMessage();
     }
 
-    public ChargeRequestMessage(String email, String description, int amount, String ip_address, String currency, CardRequestMessage card) {
+    public ChargeRequestMessage(String email, String description, long amount, String ip_address, String currency, CardRequestMessage card) {
         this.email = email;
         this.description = description;
         this.amount = amount;
@@ -51,11 +51,11 @@ public class ChargeRequestMessage implements Serializable {
         this.description = description;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 

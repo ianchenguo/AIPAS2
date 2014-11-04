@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
- *
+ * A concrete time slot entity of activities
  * @author ian
  */
 @Entity
@@ -28,7 +28,6 @@ public class TimeSlot implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -45,66 +44,131 @@ public class TimeSlot implements Serializable {
     private Activity activity;
 
     //getters and setters
-    public Long getId() {
+
+    /**
+     *
+     * @return
+     */
+        public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     *
+     * @param startDate
+     */
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     *
+     * @param endDate
+     */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getStartTime() {
         return startTime;
     }
 
+    /**
+     *
+     * @param startTime
+     */
     public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEndTime() {
         return endTime;
     }
 
+    /**
+     *
+     * @param endTime
+     */
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     *
+     * @param quantity
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     *
+     * @return
+     */
     public TimeSlotStatusEnum getStatus() {
         return status;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void setStatus(TimeSlotStatusEnum status) {
         this.status = status;
     }
 
+    /**
+     *
+     * @return
+     */
     public Activity getActivity() {
         return activity;
     }
 
+    /**
+     *
+     * @param activity
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }

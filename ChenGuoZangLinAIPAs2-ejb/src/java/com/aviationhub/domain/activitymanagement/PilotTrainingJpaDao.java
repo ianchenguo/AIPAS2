@@ -22,6 +22,10 @@ public class PilotTrainingJpaDao implements ActivityDao<PilotTraining> {
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
     private EntityManager em;
 
+    /**
+     * Selects all pilot training entities
+     * @return
+     */
     @Override
     public List<PilotTraining> listActivities() {
         Query query = em.createNamedQuery("findAllPilotTrainings");
@@ -29,6 +33,11 @@ public class PilotTrainingJpaDao implements ActivityDao<PilotTraining> {
         return pilotTrainings;
     }
 
+    /**
+     * Selects a single pilot training activity
+     * @param id
+     * @return
+     */
     @Override
     public PilotTraining getSingleActivity(long id) {
         return em.find(PilotTraining.class, id);

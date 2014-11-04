@@ -10,8 +10,24 @@ package com.aviationhub.domain.ordermanagement.entity;
  * @author ian
  */
 public enum BookingOrderStatusEnum {
+
+    /**
+     *
+     */
     PENDING,
+
+    /**
+     *
+     */
     FINALISED,
+
+    /**
+     *
+     */
     FAILED,
+
+    /**
+     *
+     */
     PAID
 }

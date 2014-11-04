@@ -27,7 +27,10 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "selectAllPayments",
-            query = "select p from Payment p"),
+            query = "select p from Payment p order by p.success, p.created_at"),
+    @NamedQuery(name = "selectPaymentsByState",
+            query = "select p from Payment p "
+                    + "where p.success = :success order by p.created_at")
     })
 public class Payment implements Serializable {
 

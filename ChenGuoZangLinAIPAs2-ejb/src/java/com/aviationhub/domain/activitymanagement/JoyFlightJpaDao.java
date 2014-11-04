@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
+ * A concrete JPA DAO for joy flight activity entities
  * @author ian
  */
 @Dependent
@@ -22,6 +22,10 @@ public class JoyFlightJpaDao implements ActivityDao<JoyFlight> {
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
     private EntityManager em;
 
+    /**
+     * Selects all joy flight entities 
+     * @return
+     */
     @Override
     public List<JoyFlight> listActivities() {
         Query query = em.createNamedQuery("findAllJoyflights");
@@ -29,6 +33,11 @@ public class JoyFlightJpaDao implements ActivityDao<JoyFlight> {
         return joyFlights;
     }
 
+    /**
+     * Selects a single joy flight activity
+     * @param id
+     * @return
+     */
     @Override
     public JoyFlight getSingleActivity(long id) {
         return em.find(JoyFlight.class, id);

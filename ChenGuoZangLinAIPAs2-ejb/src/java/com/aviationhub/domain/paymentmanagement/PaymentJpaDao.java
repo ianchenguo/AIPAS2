@@ -40,4 +40,14 @@ public class PaymentJpaDao implements PaymentDao {
     public Payment selectById(Long id) {
         return em.find(Payment.class, id);
     }
+
+    @Override
+    public List<Payment> selectByState(String isSuccess) {
+        //constructs query
+        Query query = em.createNamedQuery("selectPaymentsByState");
+        query.setParameter("success", isSuccess);
+        //fetches results
+        List<Payment> payments = query.getResultList();
+        return payments;
+    }
 }

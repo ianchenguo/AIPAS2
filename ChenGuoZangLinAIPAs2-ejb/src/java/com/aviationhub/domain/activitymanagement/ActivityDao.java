@@ -8,11 +8,22 @@ package com.aviationhub.domain.activitymanagement;
 import java.util.List;
 
 /**
- *
+ * A DAO interface for activity entities
  * @author ian
  * @param <A>
  */
 public interface ActivityDao<A> {
+
+    /**
+     * Selects all activities of an activity type
+     * @return
+     */
     public List<A> listActivities();
+
+    /**
+     * Selects a single activity
+     * @param id
+     * @return
+     */
     public A getSingleActivity(long id);
 }

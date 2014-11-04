@@ -19,26 +19,44 @@ import javax.persistence.Query;
  * @author ian
  */
 @Dependent
-public class OrderJpaDao implements OrderDao {
+public class BookingOrderJpaDao implements BookingOrderDao {
 
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     *
+     * @param order
+     */
     @Override
     public void create(BookingOrder order) {
         em.persist(order);
     }
 
+    /**
+     *
+     * @param order
+     */
     @Override
     public void update(BookingOrder order) {
         em.merge(order);
     }
 
+    /**
+     *
+     * @param order
+     */
     @Override
     public void delete(BookingOrder order) {
         em.remove(order);
     }
 
+    /**
+     *
+     * @param account
+     * @param status
+     * @return
+     */
     @Override
     public List<BookingOrder> selectByAccountAndOrderStatus(Account account, BookingOrderStatusEnum status) {
         //constructs query
@@ -50,11 +68,20 @@ public class OrderJpaDao implements OrderDao {
         return orders;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public BookingOrder selectById(Long id) {
         return em.find(BookingOrder.class, id);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<BookingOrder> selectAll() {
         //constructs query

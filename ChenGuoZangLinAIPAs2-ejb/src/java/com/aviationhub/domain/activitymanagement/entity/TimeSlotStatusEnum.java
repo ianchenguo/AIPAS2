@@ -6,10 +6,18 @@
 package com.aviationhub.domain.activitymanagement.entity;
 
 /**
- *
+ * An enum type defining known time slot status
  * @author ian
  */
 public enum TimeSlotStatusEnum {
+
+    /**
+     * available
+     */
     AVAILABLE,
+
+    /**
+     * booked
+     */
     BOOKED
 }

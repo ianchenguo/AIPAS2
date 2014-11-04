@@ -21,7 +21,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ * An abstract account entity
  * @author ian
  */
 @Entity
@@ -43,34 +43,66 @@ public abstract class Account implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date DateOfCreation;
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDateOfCreation() {
         return DateOfCreation;
     }
 
+    /**
+     *
+     * @param DateOfCreation
+     */
     public void setDateOfCreation(Date DateOfCreation) {
         this.DateOfCreation = DateOfCreation;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

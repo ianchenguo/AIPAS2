@@ -94,29 +94,30 @@ public class OrderBackingBean implements Serializable {
         card.setExpiry_year("2016");
         card.setName(order.getFirstName() + " " + order.getLastName());
         //successful
-        card.setNumber("4200000000000000");
+        //card.setNumber("4200000000000000");
 
+        
         //declined
-        card.setNumber("4100000000000001");
+        //card.setNumber("4100000000000001");
         //Insufficient Funds
-        card.setNumber("4000000000000002");
+        //card.setNumber("4000000000000002");
         //Invalid CVV
-        card.setNumber("4900000000000003");
+        //card.setNumber("4900000000000003");
         //Invalid Card
-        card.setNumber("4800000000000004");
+        //card.setNumber("4800000000000004");
         //Processing Error
-        card.setNumber("4700000000000005");
+        //card.setNumber("4700000000000005");
         //Suspected Fraud
-        card.setNumber("4600000000000006");
-
+        //card.setNumber("4600000000000006");
+                
         //Unknown
-        card.setNumber("4400000000000099");
+        //card.setNumber("4400000000000099");
 
         //Invalid Expiry
         //card.setExpiry_year("2012");
         //card.setNumber("4200000000000000");
         //lack of information
-        //order.setEmail("");
+        order.setEmail("");
         orderHandler.placeOrder(order, card);
     }
 

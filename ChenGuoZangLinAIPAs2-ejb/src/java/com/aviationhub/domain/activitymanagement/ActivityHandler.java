@@ -7,12 +7,12 @@ package com.aviationhub.domain.activitymanagement;
 
 import com.aviationhub.domain.activitymanagement.entity.JoyFlight;
 import com.aviationhub.domain.activitymanagement.entity.PilotTraining;
-import com.aviationhub.domain.activitymanagement.entity.TimeSlot;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
+ * A facade EJB for activity related logics
  *
  * @author ian
  */
@@ -23,40 +23,46 @@ public class ActivityHandler implements ActivityHandlerLocal {
     JoyFlightJpaDao joyFlightDao;
     @Inject
     PilotTrainingJpaDao pilotTrainingDao;
-    @Inject
-    TimeSlotJpaDao timeSlotDao;
 
+    /**
+     * Lists all joy flight activities
+     *
+     * @return
+     */
     @Override
     public List<JoyFlight> listJoyFlights() {
         return joyFlightDao.listActivities();
     }
 
+    /**
+     * Gets detail of a single joy flight activity
+     *
+     * @param id
+     * @return
+     */
     @Override
     public JoyFlight getJoyFlightDetail(Long id) {
         return joyFlightDao.getSingleActivity(id);
     }
 
+    /**
+     * Lists all pilot training activities
+     *
+     * @return
+     */
     @Override
     public List<PilotTraining> listPilotTraining() {
         return pilotTrainingDao.listActivities();
     }
 
+    /**
+     * Gets detail of a single pilot training activity
+     *
+     * @param id
+     * @return
+     */
     @Override
     public PilotTraining getPilotTrainingDetail(Long id) {
         return pilotTrainingDao.getSingleActivity(id);
     }
-
-    @Override
-    public boolean deductTimeSlotQuantity(Long timeSlotId, int subtractedQuantity) {
-
-        TimeSlot ts = timeSlotDao.selectById(timeSlotId);
-        int quantity = ts.getQuantity() - subtractedQuantity;
-        if (quantity >= 0) {
-            ts.setQuantity(quantity);
-        } else {
-            return false;
-        }
-        return true;
-    }
-
 }

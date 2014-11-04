@@ -44,9 +44,23 @@ public class BookingOrderLine implements Serializable {
     //in cents
     private int subTotal;
 
+    /**
+     *
+     */
     public BookingOrderLine() {
     }
 
+    /**
+     *
+     * @param activity
+     * @param startDate
+     * @param endDate
+     * @param startTime
+     * @param endTime
+     * @param timeSlotId
+     * @param quantity
+     * @param subTotal
+     */
     public BookingOrderLine(Activity activity, Date startDate, Date endDate, Date startTime, 
             Date endTime, Long timeSlotId, int quantity, int subTotal) {
         this.activity = activity;
@@ -59,6 +73,10 @@ public class BookingOrderLine implements Serializable {
         this.subTotal = subTotal;
     }
     
+    /**
+     *
+     * @param src
+     */
     public BookingOrderLine(BookingOrderLine src) {
         this.activity = src.getActivity();
         this.endDate = src.getEndDate();
@@ -70,76 +88,146 @@ public class BookingOrderLine implements Serializable {
         this.timeSlotId = src.getTimeSlotId();
     }
     
-    
-
+    /**
+     *
+     * @return
+     */
     public Long getTimeSlotId() {
         return timeSlotId;
     }
 
+    /**
+     *
+     * @param timeSlotId
+     */
     public void setTimeSlotId(Long timeSlotId) {
         this.timeSlotId = timeSlotId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Activity getActivity() {
         return activity;
     }
 
+    /**
+     *
+     * @param activity
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     *
+     * @param startDate
+     */
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     *
+     * @param endDate
+     */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getStartTime() {
         return startTime;
     }
 
+    /**
+     *
+     * @param startTime
+     */
     public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEndTime() {
         return endTime;
     }
 
+    /**
+     *
+     * @param endTime
+     */
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSubTotal() {
         return subTotal;
     }
 
+    /**
+     *
+     * @param subTotal
+     */
     public void setSubTotal(int subTotal) {
         this.subTotal = subTotal;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     *
+     * @param quantity
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

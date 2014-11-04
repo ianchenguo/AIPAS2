@@ -12,7 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
+ * A concrete joy flight activity entity
  * @author ian
  */
 @Entity
@@ -31,10 +31,19 @@ public class JoyFlight extends Activity implements Serializable {
     private int capacity;
 
     //getters and setters
-    public int getCapacity() {
+
+    /**
+     *
+     * @return
+     */
+        public int getCapacity() {
         return capacity;
     }
 
+    /**
+     *
+     * @param capacity
+     */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }

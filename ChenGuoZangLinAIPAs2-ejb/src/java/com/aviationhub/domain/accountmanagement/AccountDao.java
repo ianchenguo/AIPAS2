@@ -8,11 +8,14 @@ package com.aviationhub.domain.accountmanagement;
 import java.util.List;
 
 /**
- *
+ * A DAO interface for account entities
  * @author ian
  * @param <A>
  */
 public interface AccountDao<A> {
+
+    //reads a use by provided username and password
     public List<A> read(String username, String password);
+
     public void create(A account);
 }
