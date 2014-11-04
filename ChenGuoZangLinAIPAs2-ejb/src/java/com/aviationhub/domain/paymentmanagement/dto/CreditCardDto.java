@@ -6,7 +6,7 @@
 package com.aviationhub.domain.paymentmanagement.dto;
 
 /**
- *
+ * A DTO transports credit card information from a backing bean to a EJB
  * @author ian
  */
 public class CreditCardDto {

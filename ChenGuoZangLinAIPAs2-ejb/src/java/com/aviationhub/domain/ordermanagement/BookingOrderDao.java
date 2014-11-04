@@ -29,13 +29,15 @@ public interface BookingOrderDao {
     public void update(BookingOrder order);
 
     /**
-     *
+     * @deprecated 
+     * Deletes an order
      * @param order
      */
     public void delete(BookingOrder order);
 
     /**
-     *
+     * @deprecated 
+     * Selects orders by given account and status
      * @param account
      * @param status
      * @return
@@ -43,14 +45,16 @@ public interface BookingOrderDao {
     public List<BookingOrder> selectByAccountAndOrderStatus(Account account, BookingOrderStatusEnum status);
 
     /**
-     *
+     * @deprecated 
+     * Selects an order by id
      * @param id
      * @return
      */
     public BookingOrder selectById(Long id);
     
     /**
-     *
+     * @deprecated
+     * Selects all orders
      * @return
      */
     public List<BookingOrder> selectAll();

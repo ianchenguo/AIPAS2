@@ -9,7 +9,7 @@ import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.Erro
 import java.util.List;
 
 /**
- *
+ * A DTO transports response information from an EJB to a backing bean
  * @author ian
  */
 public class ResponseDto {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * A response message object mapping to a sub-level response jason object
  * @author ian
  */
 public class ChargeSuccessResponseMessage implements Serializable {

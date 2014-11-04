@@ -13,7 +13,7 @@ import javax.persistence.Id;
 
 /**
  * This class does not store sensitive credit card details This class stores
- * respond credit card related information
+ * An entity storing responded credit card related information
  *
  * @author ian
  */

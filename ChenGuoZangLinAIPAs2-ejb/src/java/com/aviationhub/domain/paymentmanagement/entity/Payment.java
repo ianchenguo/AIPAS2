@@ -21,7 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * A concrete payment entity
  * @author ian
  */
 @Entity

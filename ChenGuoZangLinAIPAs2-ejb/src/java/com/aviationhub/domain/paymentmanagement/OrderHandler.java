@@ -40,7 +40,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
+ * A facade EJB for order related logics
  * @author ian
  */
 @Stateless
@@ -51,6 +51,7 @@ public class OrderHandler implements OrderHandlerLocal {
     @Inject
     PaymentDao paymentDao;
 
+    //charges the order via a restful post reuqest to the credit card service provider
     private ChargeResponseMessage charge(BookingOrder order, CreditCardDto creditCardDto) {
 
         //instantiates and populates a reqeust object
@@ -69,12 +70,11 @@ public class OrderHandler implements OrderHandlerLocal {
             //conducts a restful request
             //formal url: https://test-api.pin.net.au/1/charges
             //local testing url: http://localhost:8081/1/charges
-            Response response = client.target("http://localhost:8081/1/charges")
+            Response response = client.target("https://test-api.pin.net.au/1/charges")
                     .request(MediaType.APPLICATION_JSON)
                     .post(Entity.json(chargeRequest));
             //converts the response message to a response object
             chargeResponse = response.readEntity(ChargeResponseMessage.class);
-            //chargeResponse = response.readEntity(TestResponseMessage.class);
 
         } catch (ProcessingException | WebApplicationException e) {
 
@@ -92,6 +92,12 @@ public class OrderHandler implements OrderHandlerLocal {
         return chargeResponse;
     }
 
+    /**
+     * Places an order
+     * @param order
+     * @param creditCardDto
+     * @return
+     */
     @Override
     public ResponseDto placeOrder(BookingOrder order, CreditCardDto creditCardDto) {
 
@@ -104,8 +110,8 @@ public class OrderHandler implements OrderHandlerLocal {
         //TestResponseMessage response = charge(order, creditCardDto);
 
         //debug logging info
-        Logger log = Logger.getLogger(this.getClass().getName());
-        log.log(Level.SEVERE, "error: {0}", response.getError());
+        //Logger log = Logger.getLogger(this.getClass().getName());
+        //log.log(Level.SEVERE, "error: {0}", response.getError());
         //log.log(Level.SEVERE, "isSuccess: {0}", response.getResponse().getSuccess());
         //log.log(Level.SEVERE, "ammount: {0}", response.getResponse().getAmount());
         //log.log(Level.SEVERE, "primary: {0}", responseCard.getPrimary());
@@ -135,6 +141,7 @@ public class OrderHandler implements OrderHandlerLocal {
         return responseDto; 
     }
 
+    //Creates post request message object
     private ChargeRequestMessage createChargeRequest(BookingOrder order, CreditCardDto cardDto) {
 
         BookingOrderAddress oa = order.getAddress();
@@ -147,31 +154,10 @@ public class OrderHandler implements OrderHandlerLocal {
         ChargeRequestMessage chargeRequest
                 = new ChargeRequestMessage(order.getEmail(), "Aviation Hub booking order", order.getTotalPrice(), order.getIpAddress(), "AUD", card);
 
-        /*
-         //dummy request
-         card.setPublishable_api_key("");
-         card.setNumber("4200000000000000");
-         card.setExpiry_month("12");
-         card.setExpiry_year("2016");
-         card.setCvc("342");
-         card.setName("dummy dummy");
-         card.setAddress_line1("dummy");
-         card.setAddress_line2("");
-         card.setAddress_city("Sydney");
-         card.setAddress_postcode("1234");
-         card.setAddress_state("NSW");
-         card.setAddress_country("Australia");
-         chargeRequest.setEmail("dummy@dummy.com");
-         chargeRequest.setDescription("dummy goods");
-         chargeRequest.setAmount(110);
-         chargeRequest.setIp_address("");
-         chargeRequest.setCurrency("AUD");
-         chargeRequest.setCapture("true");
-         chargeRequest.setCard(card);
-         */
         return chargeRequest;
     }
 
+    //Creates response dto sent back to a backing bean
     private ResponseDto createResponseDto(ChargeResponseMessage response) {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setError(response.getError());
@@ -180,6 +166,7 @@ public class OrderHandler implements OrderHandlerLocal {
         return responseDto;
     }
 
+    //Stores payment result into database
     private void storePaymentResult(BookingOrder order, ChargeResponseMessage response) {
 
         CardResponseMessage rc = response.getResponse().getCard();
@@ -215,16 +202,35 @@ public class OrderHandler implements OrderHandlerLocal {
         paymentDao.create(payment);
     }
 
+    /**
+     * @deprecated 
+     * Gets an order by given id
+     * @param id
+     * @return
+     */
     @Override
     public BookingOrder getOrderById(Long id) {
         return orderDao.selectById(id);
     }
 
+    /**
+     * @deprecated 
+     * Lists all orders by given account and order type
+     * @param account
+     * @param type
+     * @return
+     */
     @Override
     public List<BookingOrder> listOrdersByAccountAndType(Account account, BookingOrderStatusEnum type) {
         return orderDao.selectByAccountAndOrderStatus(account, type);
     }
 
+    /**
+     * @deprecated 
+     * Lists all orders of an account
+     * @param account
+     * @return
+     */
     @Override
     public List<BookingOrder> listOrders(Account account) {
         return orderDao.selectAll();

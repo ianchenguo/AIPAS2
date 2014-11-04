@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
+ * A concrete JPA DAO for payment entities
  * @author ian
  */
 @Dependent
@@ -22,11 +22,19 @@ public class PaymentJpaDao implements PaymentDao {
     @PersistenceContext(unitName = "ChenGuoZangLinAIPAs2-ejbPU")
     private EntityManager em;
 
+    /**
+     *
+     * @param payment
+     */
     @Override
     public void create(Payment payment) {
         em.persist(payment);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Payment> selectAll() {
         //constructs query
@@ -36,11 +44,21 @@ public class PaymentJpaDao implements PaymentDao {
         return payments;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Payment selectById(Long id) {
         return em.find(Payment.class, id);
     }
 
+    /**
+     *
+     * @param isSuccess
+     * @return
+     */
     @Override
     public List<Payment> selectByState(String isSuccess) {
         //constructs query

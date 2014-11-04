@@ -14,11 +14,29 @@ import java.util.List;
  */
 public interface PaymentDao {
 
+    /**
+     * A DAO interface for payment entities
+     * @param payment
+     */
     public void create(Payment payment);
 
+    /**
+     *
+     * @return
+     */
     public List<Payment> selectAll();
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Payment selectById(Long id);
     
+    /**
+     *
+     * @param isSuccess
+     * @return
+     */
     public List<Payment> selectByState(String isSuccess);
 }

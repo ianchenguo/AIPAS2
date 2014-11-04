@@ -6,7 +6,7 @@
 package com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage;
 
 /**
- *
+ * A response message object mapping to a sub-level response jason object
  * @author ian
  */
 public class ChargeTransferMessage {

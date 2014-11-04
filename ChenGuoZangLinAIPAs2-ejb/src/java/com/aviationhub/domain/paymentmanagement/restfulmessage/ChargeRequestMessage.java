@@ -9,7 +9,7 @@ import com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage.Card
 import java.io.Serializable;
 
 /**
- *
+ * A request message object mapping to a post jason object
  * @author ian
  */
 public class ChargeRequestMessage implements Serializable {

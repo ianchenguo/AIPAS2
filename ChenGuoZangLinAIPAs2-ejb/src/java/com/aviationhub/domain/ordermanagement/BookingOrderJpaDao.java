@@ -25,7 +25,7 @@ public class BookingOrderJpaDao implements BookingOrderDao {
     private EntityManager em;
 
     /**
-     *
+     * Creates a new order
      * @param order
      */
     @Override
@@ -34,7 +34,7 @@ public class BookingOrderJpaDao implements BookingOrderDao {
     }
 
     /**
-     *
+     * Updates an existing order
      * @param order
      */
     @Override
@@ -43,7 +43,8 @@ public class BookingOrderJpaDao implements BookingOrderDao {
     }
 
     /**
-     *
+     * @deprecated 
+     * Deletes an order
      * @param order
      */
     @Override
@@ -52,7 +53,7 @@ public class BookingOrderJpaDao implements BookingOrderDao {
     }
 
     /**
-     *
+     * @deprecated Selects orders by given account and status
      * @param account
      * @param status
      * @return
@@ -69,7 +70,7 @@ public class BookingOrderJpaDao implements BookingOrderDao {
     }
 
     /**
-     *
+     * @deprecated Selects an order by id
      * @param id
      * @return
      */
@@ -79,7 +80,7 @@ public class BookingOrderJpaDao implements BookingOrderDao {
     }
 
     /**
-     *
+     * @deprecated Selects all orders
      * @return
      */
     @Override

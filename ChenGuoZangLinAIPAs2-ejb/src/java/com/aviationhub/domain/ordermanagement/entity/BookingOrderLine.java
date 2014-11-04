@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
- *
+ * A concrete order line entity
  * @author ian
  */
 @Entity

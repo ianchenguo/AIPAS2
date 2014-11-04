@@ -4,6 +4,10 @@ import java.io.*;
 import java.net.*;
 import javax.net.ssl.*;
 
+/**
+ *
+ * @author ian
+ */
 public class Forwarder {
 
     private static byte[] search = "localhost:8081".getBytes();
@@ -13,6 +17,11 @@ public class Forwarder {
     private static String serverName = "test-api.pin.net.au";
     private static int serverPort = 443;
     
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         // Listen for new connections
         ServerSocket ss = new ServerSocket(8081);

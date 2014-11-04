@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
+ * A payment transfer entity
  * @author ian
  */
 @Entity

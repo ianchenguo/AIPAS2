@@ -8,7 +8,7 @@ package com.aviationhub.domain.paymentmanagement.restfulmessage.childmessage;
 import java.io.Serializable;
 
 /**
- *
+ * A response message object mapping to a sub-level response jason object
  * @author ian
  */
 public class CardResponseMessage implements Serializable {

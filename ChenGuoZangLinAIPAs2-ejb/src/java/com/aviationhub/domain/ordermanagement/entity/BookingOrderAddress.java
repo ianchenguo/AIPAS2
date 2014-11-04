@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 /**
- *
+ * A concrete order address entity
  * @author ian
  */
 @Entity
